@@ -7,7 +7,7 @@
 /* Hero Section */
 .hero {
   position: relative;
-  height: 60vh;
+  height: 80vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -50,14 +50,14 @@
 .cards-container {
   display: flex;
   gap: 1.5rem;
-  margin-top: -1rem; /* Félig belecsúszik a képbe */
+  margin-top: -3rem; /* Félig belecsúszik a képbe */
   justify-content: center;
   flex-wrap: wrap;
   z-index: 22;
 }
 
 .card {
-  width: 300px;
+  width: 200px;
   height: 300px;
   display: flex;
  
@@ -112,8 +112,9 @@
 }
 
 .footer{
-  height: 200px;
+  height: 100px;
   margin-top: 2rem;
   background: #e7edf2;  
  
 }
+
