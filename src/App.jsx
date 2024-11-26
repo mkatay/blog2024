@@ -5,13 +5,13 @@ import './App.css'
 import { Home } from './pages/Home';
 import { Detail } from './pages/Detail';
 import { AddEditPost } from './pages/AddEditPost';
-import { SignIn } from './pages/SignIn';
-import { SignUp } from './pages/SignUp';
 import { PwReset } from './pages/PwReset';
 import { Profile } from './pages/Profile';
 import { Admin } from './pages/Admin';
 import { NotFound } from './pages/NotFound';
 import { Header } from './components/Header';
+import { Posts } from './pages/Posts';
+import { Auth } from './pages/Auth';
 
 
 
@@ -19,11 +19,12 @@ const router=createBrowserRouter([
   {element:<Header/>,
     children:[
       {path:'/',element:<Home/>},
+      {path:'/posts',element:<Posts/>},
       {path:'/detail/:id',element:<Detail/>},
       {path:'/create',element:<AddEditPost />},
       {path:'/update/:id',element:<AddEditPost />},
-      {path:'/signin',element:<SignIn/>},
-      {path:'/signup',element:<SignUp/>},
+      {path:'/auth/in',element:<Auth/>},
+      {path:'/auth/up',element:<Auth/>},
       {path:'/pwreset',element:<PwReset/>},
       {path:'/profile',element:<Profile/>},
       {path:'/admin',element:<Admin/>},
