@@ -3,8 +3,13 @@ import {ReactTyped} from "react-typed";
 import { NavLink } from "react-router-dom";
 import { ParallaxProvider, ParallaxBanner } from "react-scroll-parallax";
 import "./Home.css";
+import { useContext } from "react";
+import { CategContext } from "../context/CategContext";
 
 export const Home = () => {
+  const {categories} =useContext(CategContext)
+  console.log(categories);
+  
   return (
     <ParallaxProvider>
       <div className="home">
