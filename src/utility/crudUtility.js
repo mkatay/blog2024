@@ -19,6 +19,14 @@ export const readCategories = (setCategories) => {
   return unsubscribe;
 };
 
+export const addPost =async (formData) => {
+ console.log(formData);
+
+  const collectionRef= collection(db, "posts");
+  const newItem={...formData,timestamp:serverTimestamp()}
+  const newDocRef=await addDoc(collectionRef,newItem)
+  //console.log("az új documentum azonosítója:",newDocRef.id)
+};
 
 /*
 export const deleteFile=async (photoURL)=>{
@@ -37,13 +45,7 @@ export const deletePost=async (id)=>{
   const docRef= doc(db, "posts", id);
   await deleteDoc(docRef)
 }
-export const addPost =async (formData) => {
-    console.log(formData);
-    const collectionRef= collection(db, "posts");
-    const newItem={...formData,timestamp:serverTimestamp()}
-    const newDocRef=await addDoc(collectionRef,newItem)
-    //console.log("az új documentum azonosítója:",newDocRef.id)
-  };
+
 
 //Ez a függvény aszinkron módon működik. Az onSnapshot függvény egy eseményfigyelő, amely figyeli 
 //a Firestore adatbázisban történő változásokat. Amikor a posts gyűjteményben változás történik (pl. új bejegyzés hozzáadása), akkor az onSnapshot meghívódik, és frissíti a bejegyzéseket az aktuális adatokkal.
