@@ -2,7 +2,7 @@ import React from 'react'
 
 export const AddEditPost = () => {
   return (
-    <div>
+    <div className='page'>
       default AddEditPost
     </div>
   )

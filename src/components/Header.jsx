@@ -62,7 +62,10 @@ export const Header=()=> {
             <NavItem>
               <NavLink className='nav-link' to='/posts'>Posztok</NavLink>
             </NavItem>
-            
+           {user && <NavItem>
+              <NavLink className='nav-link' to='/create'>Új Poszt</NavLink>
+            </NavItem>
+}
           </Nav>  
           <Nav  navbar>
             {! user ? <>

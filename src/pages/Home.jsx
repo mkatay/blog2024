@@ -5,6 +5,9 @@ import { ParallaxProvider, ParallaxBanner } from "react-scroll-parallax";
 import "./Home.css";
 import { useContext } from "react";
 import { CategContext } from "../context/CategContext";
+import { RingLoader } from "react-spinners";
+import { useState } from "react";
+
 
 export const Home = () => {
   const {categories} =useContext(CategContext)
@@ -37,38 +40,16 @@ export const Home = () => {
         </ParallaxBanner>
 
         <div className="cards-container">
-          <div
-            className="card"
-            style={{ backgroundImage: `url('tech.jpg')` }}
-          >
-            <NavLink className="card-title" to="/detail">
-              Technológia
-            </NavLink>
-          </div>
-          <div
-            className="card"
-            style={{ backgroundImage: `url('life.jpg')` }}
-          >
-            <a href="#about" className="card-title">
-              Életmód
-            </a>
-          </div>
-          <div
-            className="card"
-            style={{ backgroundImage: `url('szorakozas.jpg')` }}
-          >
-            <a href="#latest" className="card-title">
-              Szórakozás
-            </a>
-          </div>
-          <div
-            className="card"
-            style={{ backgroundImage: `url('konyha.jpg')` }}
-          >
-            <a href="#about" className="card-title">
-              Konyha
-            </a>
-          </div>
+          {categories ? categories.map(obj=>
+            <div key={obj.name} className="card"style={{ backgroundImage: `url(${obj.photo})` }}>
+              <NavLink className="card-title"     to={"/posts?sel="+obj.name}>
+                {obj.name}
+              </NavLink>
+            </div>
+
+          )
+        : <div style={{height:'300px',width:'100%',display:'flex',justifyContent:'center'}}><RingLoader size='250'/></div>
+        }
         </div>
 
         <div className="footer">footer ... about me...</div>
