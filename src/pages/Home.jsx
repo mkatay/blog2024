@@ -6,7 +6,7 @@ import "./Home.css";
 import { useContext } from "react";
 import { CategContext } from "../context/CategContext";
 import { RingLoader } from "react-spinners";
-import { useState } from "react";
+import { Footer } from "../components/Footer";
 
 
 export const Home = () => {
@@ -48,11 +48,11 @@ export const Home = () => {
             </div>
 
           )
-        : <div style={{height:'300px',width:'100%',display:'flex',justifyContent:'center'}}><RingLoader size='250'/></div>
+        : <div style={{height:'300px',width:'100%',display:'flex',justifyContent:'center'}}><RingLoader size='250px'/></div>
         }
         </div>
 
-        <div className="footer">footer ... about me...</div>
+        <Footer/>
       </div>
     </ParallaxProvider>
   );

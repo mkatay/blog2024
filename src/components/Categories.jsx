@@ -2,26 +2,15 @@ import React from 'react'
 import { useContext } from 'react'
 import { Form, FormGroup, Input, Label } from 'reactstrap'
 import { CategContext } from '../context/CategContext'
-import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 
-
-export const Categories = () => {
+export const Categories = ({selectedCateg,setSelectedCateg}) => {
     const {categories}=useContext(CategContext)
-    let [searchParams] = useSearchParams();
-    console.log(searchParams.get('sel'));
-    
-    const [selectedCateg,setSelectedCateg]=useState( searchParams.get('sel') ? [searchParams.get('sel')] : [])
-console.log(selectedCateg);
-
-
 
     const handleChange = (e) => {
         const { value, checked } = e.target; // Érték és állapot lekérdezése  
         setSelectedCateg((prev) => checked ? [...prev, value] : prev.filter((categ) => categ !== value) );
       };
-      
-
+    
   return (
     <div>
       <Form className='d-flex justify-content-center flex-wrap'>

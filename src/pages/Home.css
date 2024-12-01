@@ -1,7 +1,7 @@
 
 .home{
   min-height: 100vh;
-
+background-color: #475569;
   color:#bdc3c7!important;  
 }
 /* Hero Section */
@@ -109,12 +109,5 @@
     width: 150px;
     height: 250px;
   }
-}
-
-.footer{
-  height: 100px;
-  margin-top: 2rem;
-  background-color: rgba(128, 128, 128,0.2);
- 
 }
 

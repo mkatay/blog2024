@@ -10,13 +10,20 @@
   }
   .page{
         min-height: 100vh;  
-        background: #1D2B64;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #F8CDDA, #1D2B64);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to top, #F8CDDA, #1D2B64); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
+        background-color: #020617;
         padding-top: 60px;
       
       }
 .menu{
     border-bottom: 1px solid gray;
+}
+.err-container {
+  height: 1em; /* Magasság fenntartása a hibaüzenet számára */
+  font-size: 0.7em; /* Az üzenet mérete */
+  color: red;
+}
+/*BigCard*/
+h4 strong, li span{
+  background-color: #475569!important;
+  color:white!important;
 }

@@ -15,7 +15,7 @@ const editorStyle={
     margin:'auto'
 }
 
-export const Story = ({setStory}) => {
+export const Story = ({setStory,uploaded}) => {
     const theme = 'snow';
     const modules = {
         toolbar: [
@@ -34,6 +34,7 @@ export const Story = ({setStory}) => {
 
     const { quill, quillRef } = useQuill({ theme, modules, placeholder });
 
+    
 
     useEffect(() => {
         if (quill) {
@@ -42,7 +43,8 @@ export const Story = ({setStory}) => {
                 setStory(quill.root.innerHTML);
             });
         }
-    }, [quill])
+        uploaded &&  quill.setContents([])
+    }, [quill,uploaded])
     
     return (
         <div style={editorStyle}>
