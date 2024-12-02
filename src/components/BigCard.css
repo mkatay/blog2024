@@ -1,0 +1,11 @@
+/*BigCard*/
+.bigCard h4 strong,.bigCard li span{
+    background-color: var(--fr-color)!important;
+    color:var(--text-color)!important;
+  }
+  .bigCard{
+    background-color: var(--fr-color)!important;
+  }
+  .bigCard:hover{
+    cursor: default;
+  }

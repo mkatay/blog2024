@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .hidden {
@@ -10,20 +9,15 @@
   }
   .page{
         min-height: 100vh;  
-        background-color: #020617;
+        background-color: var(--bg-color);
         padding-top: 60px;
       
       }
 .menu{
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--text-color);
 }
 .err-container {
   height: 1em; /* Magasság fenntartása a hibaüzenet számára */
   font-size: 0.7em; /* Az üzenet mérete */
   color: red;
-}
-/*BigCard*/
-h4 strong, li span{
-  background-color: #475569!important;
-  color:white!important;
 }

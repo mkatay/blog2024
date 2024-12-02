@@ -1,0 +1,18 @@
+.smallCard {
+    margin-top: 1rem;
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    gap:10px;
+    border-bottom: 1px solid var(--text-color);
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Szebb animáció */
+  }
+  
+  .smallCard:hover {
+    background-color: var(--fr-color); /* Világosabb háttér */
+    transform: scale(1.02); /* Kicsit nagyobb méretre vált */
+    cursor: pointer; /* Mutatja, hogy kattintható */
+  }
+  .smallCard img{
+    border-radius: 5px;
+  }
