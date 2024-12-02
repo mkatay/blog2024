@@ -30,7 +30,7 @@ export const AddEditPost=()=> {
     
     const newPostData={
       ...data,
-      category_id: selectedCategory.id,
+      category_id: selectedCategory.name,
       story, 
       author: user.displayName,
       userId: user.uid,

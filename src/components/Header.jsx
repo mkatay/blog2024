@@ -28,19 +28,16 @@ export const Header=()=> {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScroll = window.pageYOffset;
-
+      const currentScroll = window.scrollY;
       if (currentScroll > lastScrollTop) {
         setIsHidden(true); // Lefelé görgetéskor elrejtés
       } else {
         setIsHidden(false); // Felfelé görgetéskor megjelenítés
       }
-
       setLastScrollTop(currentScroll);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll); // Takarítás
     };
