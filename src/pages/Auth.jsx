@@ -5,6 +5,8 @@ import { Alert, Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Toastify } from '../components/Toastify';
+import { background } from '@cloudinary/url-gen/qualifiers/focusOn';
+import { BiBorderRadius } from 'react-icons/bi';
 
 const middleStyle={
   position: 'absolute',
@@ -12,6 +14,10 @@ const middleStyle={
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 300,
+  background:'var(--col4)',
+  padding:'1rem',
+  borderRadius:'5px',
+  boxShadow:'0 0 5px var(--col3)'
 }                                    
 
 
@@ -41,25 +47,17 @@ console.log(msg);
   return (
     <div className="page">
       <div  style={middleStyle}>
-      <h3 className='text-center'>{isSignIn? 'Sign IN':'Sign UP'}</h3>
+      <h3 className='text-center' style={{color:'var(--col1'}}>{isSignIn? 'Sign IN':'Sign UP'}</h3>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="exampleEmail">Email</Label>
-          <Input
-            name="email"
-            placeholder="email"
-            type="email"
-          />
+          <Label style={{color:'var(--col1'}}>Email</Label>
+          <Input   name="email"  placeholder="email"  type="email" />
         </FormGroup>
         <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input
-            name="password"
-            placeholder="password "
-            type="password"
-          />
+          <Label style={{color:'var(--col1'}}>Password</Label>
+          <Input  name="password"   placeholder="password " type="password" />
         </FormGroup>
-        <Button>{isSignIn? 'Sign IN':'Sign UP'} </Button>
+        <Button style={{color:'var(--col5',backgroundColor:'var(--col1'}}>{isSignIn? 'Sign IN':'Sign UP'} </Button>
       </Form>
       {msg && <Toastify {...msg}/>}
   

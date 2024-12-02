@@ -1,8 +1,13 @@
 :root {
-    --bg-color: #082f49;
+   /* --bg-color: #082f49;
     --fr-color: #0c4a6e;
-    --text-color:#f0f9ff;
-
+    --text-color:#f0f9ff;*/
+    --col1:#C9CAD9;
+    --col2:#D1D2F9;
+    --col3:#A3BCF9;
+    --col4:#7796CB;
+    --col5:#576490;
+    
   }
   /*
   
@@ -29,3 +34,4 @@
 950
 #082f49
 */
+

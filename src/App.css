@@ -9,12 +9,12 @@
   }
   .page{
         min-height: 100vh;  
-        background-color: var(--bg-color);
+        background-color: var(--col5);
         padding-top: 60px;
       
       }
 .menu{
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--col1);
 }
 .err-container {
   height: 1em; /* Magasság fenntartása a hibaüzenet számára */

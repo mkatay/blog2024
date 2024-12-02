@@ -1,8 +1,8 @@
 
 .home{
   min-height: 100vh;
-background-color: var(--fr-color);
-  color:var(--text-color)!important;  
+background-color: var(--col2);
+ 
 }
 /* Hero Section */
 .hero {
@@ -32,8 +32,7 @@ background-color: var(--fr-color);
   z-index: 2; /* Biztosítja, hogy a szöveg és a gombok a háttér előtt legyenek */
   text-align: center;
   padding: 3rem;
-  color: var(--text-color);
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  color: var(--col5);
 }
 
 .hero h1 {
@@ -79,8 +78,8 @@ background-color: var(--fr-color);
 }
 
 .card-title {
-  color: var(--text-color);
-  background: rgba(0, 0, 0, 0.6);
+  color: var(--col1);
+  background: var(--col5);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   text-decoration: none;
@@ -91,7 +90,8 @@ background-color: var(--fr-color);
 }
 
 .card-title:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--col1);
+  color: var(--col5);;
 }
 
 /* Responsive Adjustments */

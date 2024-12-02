@@ -4,13 +4,14 @@
     width: 100%;
     display: flex;
     gap:10px;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--col1);
     transition: background-color 0.3s ease, transform 0.3s ease; /* Szebb animáció */
     position: relative;
+    color:var(--col1);
   }
   
   .smallCard:hover {
-    background-color: var(--fr-color); /* Világosabb háttér */
+    background-color: var(--col4); /* Világosabb háttér */
     transform: scale(1.02); /* Kicsit nagyobb méretre vált */
     cursor: pointer; /* Mutatja, hogy kattintható */
   }
