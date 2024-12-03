@@ -24,7 +24,7 @@ export const Posts = () => {
     <div className='page'>
       <Categories selectedCateg={selectedCateg} setSelectedCateg={setSelectedCateg}/>
       {posts.length>0 && <CardsContainer posts={posts}/>}
-      <Footer/>
+
     </div>
   )
 }

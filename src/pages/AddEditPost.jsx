@@ -23,6 +23,7 @@ export const AddEditPost=()=> {
   const [uploaded, setUploaded] = useState(false);    
 
   if (!user) return <NotFound />
+console.log(user);
 
  const onSubmit =async (data) => {
     setLoading(true);
@@ -30,7 +31,7 @@ export const AddEditPost=()=> {
     
     const newPostData={
       ...data,
-      category_id: selectedCategory.name,
+      category: selectedCategory.name,
       story, 
       author: user.displayName,
       userId: user.uid,
@@ -64,7 +65,7 @@ export const AddEditPost=()=> {
       <form onSubmit={handleSubmit(onSubmit)}  className='container'>
    
             <div className="d-flex mb-3 gap-2 justify-content-center align-items-center">
-              <div style={{maxWidth:300}}>
+              <div style={{maxWidth:300,color:'var(--col1)'}}>
                 <label >A bejegyzés címe:</label>
                 <input className='form-control' {...register('title', { required: true })} />
                 <p className='err-container'>{errors.title && 'A címet kötelező megadni!'}</p>

@@ -20,11 +20,18 @@ import {
 import { UserContext } from '../context/UserContext';
 import { useContext } from 'react';
 
+
 export const Header=()=> {
   const { user, logoutUser} = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [avatar,setAvatar]=useState(null)
+
+  useEffect(()=>{
+    user?.photoURL && setAvatar(user.photoURL)
+    !user && setAvatar(null)
+  },[user,user?.photoURL])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +51,7 @@ export const Header=()=> {
   }, [lastScrollTop]);
 
   const toggle = () => setIsOpen(!isOpen);
-
+console.log(avatar)
   return (
     <div className='home'>
       <Navbar expand='md' fixed='top' dark className={isHidden ? "menu hidden" : "menu"}>
@@ -52,12 +59,12 @@ export const Header=()=> {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink className='nav-link' to='/'>Főoldal</NavLink>
+            <NavItem >
+              <NavLink className='nav-link ' to='/'>Főoldal</NavLink>
             </NavItem>
             
             <NavItem>
-              <NavLink className='nav-link' to='/posts'>Posztok</NavLink>
+              <NavLink className='nav-link ' to='/posts'>Posztok</NavLink>
             </NavItem>
            {user && <NavItem>
               <NavLink className='nav-link' to='/create'>Új Poszt</NavLink>
@@ -79,10 +86,12 @@ export const Header=()=> {
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
-                    <RxAvatar title={user.email}/>
+                    {avatar ?<img className='avatarIcon' src={avatar} title={user.displayName}/> : <RxAvatar />}
                   </DropdownToggle>
                   <DropdownMenu end>
-                    <DropdownItem>Személyes adatok</DropdownItem>
+                    <DropdownItem>
+                      <NavLink style={{textDecoration:'none',borderBottom:'1px solid var(--col(4))'}} to='/profile'> Személyes adatok</NavLink>
+                    </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem>Felhasználói fiok törlése</DropdownItem>
                   </DropdownMenu>

@@ -21,3 +21,21 @@
   font-size: 0.7em; /* Az üzenet mérete */
   color: red;
 }
+
+
+.navbar-dark .nav-link:hover {
+  color: #FFD700 !important;
+}
+.nav-link{
+  font-weight: 800;
+  
+}
+button:hover{
+  color: #FFD700 !important;
+}
+.avatarIcon{
+  width: 30px!important;
+  height: 30px;
+  border-radius: 50%;
+
+}

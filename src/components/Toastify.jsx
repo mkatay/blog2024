@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 
-export const Toastify=({signin,signup,err})=> {
+export const Toastify=({signin,signup,err,resetPw})=> {
     const navigate=useNavigate()
     useEffect(() => {
         if (err) {
@@ -14,8 +14,12 @@ export const Toastify=({signin,signup,err})=> {
           // Várakozás a navigáció előtt
         signin && setTimeout(() => navigate('/'), 2000); 
     
-        }
-      }, [signin, signup, err]); 
+        }else if(resetPw){
+          toast.success(resetPw, { position: "top-center" });
+          // Várakozás a navigáció előtt
+          setTimeout(() => navigate('/'), 2000); 
+        } 
+      }, [signin, signup, err,resetPw]); 
     
    return (
       <>

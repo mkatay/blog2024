@@ -5,3 +5,17 @@ export const sanitizeHTML = (html) => {
     return doc.body.textContent || "";
   };
   
+
+  export const middleStyle={
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
+    background:'var(--col4)',
+    padding:'1rem',
+    borderRadius:'5px',
+    boxShadow:'0 0 5px var(--col3)'
+  }                                    
+  
+  

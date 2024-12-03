@@ -4,7 +4,6 @@ import { onAuthStateChanged,signInWithEmailAndPassword,signOut,createUserWithEma
 import { auth } from '../utility/firebaseApp';
 
 
-//const photoURL='https://firebasestorage.googleapis.com/v0/b/myblog-7535b.appspot.com/o/uploads%2Favatar.svg?alt=media&token=3b7ea8f7-f87e-414b-9615-8b870172a5e1'
 
 const urlRedirect=/*'https://myblog-7535b.web.app/signin' */'http://localhost:5173/auth/in'
 
@@ -14,7 +13,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [msg,setMsg]=useState(null)
 
- //console.log(user,msg);
+ console.log(msg);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -52,10 +51,10 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-   const signUpUser =async (email, password) => {
+   const signUpUser =async (email, password,displayName) => {
     try{
-      await createUserWithEmailAndPassword(auth, email, password/*,displayName*/);
-      //await updateProfile(auth.currentUser, {displayName,photoURL})
+      await createUserWithEmailAndPassword(auth, email, password,displayName);
+      await updateProfile(auth.currentUser, {displayName})
       sendEmailLink(email)
       logoutUser()
     }catch(err){
@@ -64,6 +63,17 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateUser =async (displayName,photoURL) => {
+    try{
+      if(displayName && photoURL) await updateProfile(auth.currentUser, {displayName,photoURL})
+      else if (displayName) await updateProfile(auth.currentUser, {displayName})
+      else if(photoURL) await updateProfile(auth.currentUser, {photoURL})
+      setMsg({...msg,update:'Sikeres módosítás!'})  
+    }catch(err){
+      console.log(err.message)
+      setMsg({...msg,err:err.message})
+    }
+  };
      
   const resetPassword =async (email) => {
     try{
@@ -72,7 +82,7 @@ export const UserProvider = ({ children }) => {
       setMsg({...msg,resetPw:'A jelszóvisszaállítási email elküldve.'})
     }catch(err){
       console.log(err.message)
-      setMsg({...msg,resetPw:null})
+      setMsg({...msg,err:err.message})
 
     }
   }
@@ -87,7 +97,7 @@ export const UserProvider = ({ children }) => {
 
     return (
     <UserContext.Provider value={{ user,msg,setMsg,logoutUser,signInUser,resetPassword,
-                                    sendEmailLink,deleteAccount,signUpUser}}>
+                                    sendEmailLink,deleteAccount,signUpUser,updateUser}}>
                                      
       {children}
     </UserContext.Provider>

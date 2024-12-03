@@ -1,12 +1,17 @@
 import React from 'react'
+import'./Footer.css'
 
 export const Footer = () => {
   return (
-    <footer style={{backgroundColor:'var(--col5)',height:'100px', marginTop:'2rem',color:'var(--col1)'}}>
+    <footer >
       <hr className=" mt-5 mb-4" />
-      <p>
-        Created and open sourced by KAM
-      </p>
+      <div className="about-me">
+        <img src="kam.jpg" alt="Rólam" className="about-me-photo"/>
+         <p><strong>Rólam</strong></p>
+         <p> Sziasztok! KAM vagyok, lelkes blogger, aki szívesen osztja meg gondolatait a fenti témakörök világából.
+          Tarts velem, fedezzük fel együtt az ötleteket, inspirálódjunk és kapcsolódjunk egymáshoz!
+        </p>
+      </div>
     </footer>
   )
 }

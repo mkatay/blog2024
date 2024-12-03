@@ -1,5 +1,5 @@
 /*BigCard*/
-.bigCard h4 strong,.bigCard li span{
+.bigCard h5 strong,.bigCard li span{
     background-color: var(--col4)!important;
     color:var(--col1)!important;
   }
