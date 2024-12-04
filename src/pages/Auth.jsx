@@ -5,9 +5,8 @@ import { Alert, Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Toastify } from '../components/Toastify';
-import { background } from '@cloudinary/url-gen/qualifiers/focusOn';
-import { BiBorderRadius } from 'react-icons/bi';
 import { useEffect } from 'react';
+import { buttonStyle } from '../utility/utils';
 
 const middleStyle={
   position: 'absolute',
@@ -15,26 +14,21 @@ const middleStyle={
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 300,
-  background:'var(--col4)',
-  padding:'1rem',
+  background:'white',
+  padding:'1.5rem',
   borderRadius:'5px',
-  boxShadow:'0 0 5px var(--col3)'
+ 
 }                                    
 
 
 
 export const Auth = () => {
-  const {signInUser,signUpUser,msg,user,setMsg}=useContext(UserContext)
+  const {signInUser,signUpUser,msg,user}=useContext(UserContext)
 console.log(msg);
 
   const location = useLocation(); // Kinyerjük az aktuális útvonalat
   const isSignIn = location.pathname === '/auth/in';
   const navigate=useNavigate()
-
-  useEffect(()=>{
-    setMsg(null)
-  },[])
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,24 +47,24 @@ console.log(msg);
   return (
     <div className="page">
       <div  style={middleStyle}>
-      <h3 className='text-center' style={{color:'var(--col1'}}>{isSignIn? 'Sign IN':'Sign UP'}</h3>
+      <h3 className='text-center' style={{color:'var(--col5)'}}>{isSignIn? 'Sign IN':'Sign UP'}</h3>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label style={{color:'var(--col1'}}>Email</Label>
+          <Label style={{color:'var(--col3'}}>Email</Label>
           <Input   name="email"  placeholder="email"  type="email" />
         </FormGroup>
         <FormGroup>
-          <Label style={{color:'var(--col1'}}>Password</Label>
+          <Label style={{color:'var(--col3'}}>Password</Label>
           <Input  name="password"   placeholder="password " type="password" />
         </FormGroup>
         {!isSignIn && <FormGroup>
-          <Label style={{color:'var(--col1'}}>Username</Label>
+          <Label style={{color:'var(--col3'}}>Username</Label>
           <Input  name="display_name"   placeholder="username " type="text" />
         </FormGroup>
         }
-        <Button >{isSignIn? 'Sign IN':'Sign UP'} </Button>
+        <Button style={buttonStyle}>{isSignIn? 'Sign IN':'Sign UP'} </Button>
       </Form>
-      <a href="#" onClick={() =>navigate('/pwreset')  } style={{color:'var(--col1)',display:'block',textAlign:'right'}} >Elfelejtett jelszó...</a>
+      <a href="#" onClick={() =>navigate('/pwreset')  } style={{color:'var(--col5)',display:'block',textAlign:'right',padding:'5px'}} >Elfelejtett jelszó...</a>
       
       {msg && <Toastify {...msg}/>}
   

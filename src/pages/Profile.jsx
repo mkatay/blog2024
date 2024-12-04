@@ -7,10 +7,26 @@ import { uploadFile } from '../utility/uploadFile';
 import { BarLoader } from 'react-spinners';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Toastify } from '../components/Toastify';
+import { Button } from 'reactstrap';
+import { buttonStyle, disabledButtonStyle } from '../utility/utils';
+
+const middleStyle={
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxWidthwidth: 600,
+  background:'white',
+  padding:'1.5rem',
+  borderRadius:'5px',
+ 
+}                                    
+
 
 
 export const Profile = () => {
-  const { user,updateUser} = useContext(UserContext);
+  const { user,updateUser,msg} = useContext(UserContext);
 
   const {register,handleSubmit,formState: { errors },reset} = useForm({
     defaultValues: {
@@ -24,6 +40,7 @@ export const Profile = () => {
   useEffect(()=>{
     user?.photoURL && setPhoto(user.photoURL)
   },[user])
+  
  
   if (!user) return <NotFound />;
 
@@ -33,20 +50,21 @@ export const Profile = () => {
     try {
       const file =data?.file ? data.file[0] :null;
       const photoURL=file? await uploadFile(file):null
+      photoURL && setUploaded(true);
       updateUser(data.displayName,photoURL)   
-      setUploaded(true);
     } catch (error) {
       console.error("Hiba a fájl feltöltése közben", error);
     } finally {
       setLoading(false);
     }
-      setUploaded(true);
 };
                                 
 console.log(errors);//ebbe az objektumba gyűlnek a hibák
 
   return (
     <div className="page ">
+      <div  style={middleStyle}>
+      <h3 className='text-center' style={{color:'var(--col5)'}}>Fiók beállítások</h3>
       <form onSubmit={handleSubmit(onSubmit)}  className='container' style={{maxWidth:'600px'}}>
       <div className="d-flex flex-column justify-content-center mt-2">
         <div>
@@ -78,17 +96,19 @@ console.log(errors);//ebbe az objektumba gyűlnek a hibák
             <p className='err-container'>{errors?.file?.message }</p> 
             </div>
         <div>
-          <input  className='btn btn-primary'type="submit" />
+          <Button  style={{...buttonStyle,...(loading && disabledButtonStyle)}}  disabled={loading}>Mentés</Button>
         </div>
        </div> 
         {loading && <BarLoader />}
-        {uploaded && <p>Sikeres feltöltés!</p>}
+        {uploaded && photo && <p>Sikeres kép feltöltés!</p>}
       </form>
       {photo && (
             <div className='d-flex justify-content-center'>
-              <img className="img-thumbnail" src={photo} alt="postPhoto" style={{maxWidth:'300px'}}/>
+              <img className="img-thumbnail" src={photo} alt="postPhoto" style={{maxWidth:'200px'}}/>
             </div>       
-      )}    
+      )}  
+      {msg && <Toastify {...msg} />}  
+      </div>
     </div>
   )
 }

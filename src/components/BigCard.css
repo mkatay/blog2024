@@ -4,8 +4,40 @@
     color:var(--col1)!important;
   }
   .bigCard{
-    background-color: var(--col4)!important;
+    background-color: var(--col5)!important;
+    border-width: 0;
+    box-shadow: none;
+
+     transform: none;
+ 
   }
   .bigCard:hover{
     cursor: default;
   }
+.bigCard img{
+  max-height: 500px;
+  object-fit: cover;
+}
+
+ .cardBody{
+  background-color: white;
+  width: 90%;
+  margin: auto;
+  margin-top: -3rem;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Hangsúlyozás */
+  border-radius: 8px;
+ }
+ .bigCard main{
+  display: flex;
+  flex-wrap: wrap;
+  gap:10px;
+ }
+ .bigCard .story{
+  flex:4;
+  text-align: justify;
+ }
+ .bigCard .info{
+  flex:1;
+  border-left: 1px solid var(--col1);
+ }

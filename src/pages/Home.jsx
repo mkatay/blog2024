@@ -41,8 +41,8 @@ export const Home = () => {
 
         <div className="cards-container">
           {categories ? categories.map(obj=>
-            <div key={obj.name} className="card"style={{ backgroundImage: `url(${obj.photo})` }}>
-              <NavLink className="card-title"     to={"/posts?sel="+obj.name}>
+            <div key={obj.name} className="mycard"style={{ backgroundImage: `url(${obj.photo})` }}>
+              <NavLink className="mycard-title"     to={"/posts?sel="+obj.name}>
                 {obj.name}
               </NavLink>
             </div>

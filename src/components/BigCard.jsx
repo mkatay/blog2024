@@ -7,12 +7,15 @@ export const BigCard = ({id,title,story,photoURL}) => {
       console.log(photoURL);
       
   return (
-    <Card className="w-100 h-auto  mt-3 bigCard" style={{ boxShadow: 'none', transform: 'none'}}>
-    <CardImg  alt={title} src={photoURL} style={{ height: 'auto' }} top width="100%" />
-    <CardBody>
+    <Card className=" bigCard" style={{ boxShadow: 'none', transform: 'none'}}>
+    <CardImg  alt={title} src={photoURL}  top width="100%" />
+    <CardBody className='cardBody'>
       <CardTitle tag="h5">{title}</CardTitle>
-      <main className='text-white'>
-      {parse(story)}
+      <main >
+        <div className='story'>
+           {parse(story)}
+        </div>
+        <div className='info'>egyéb infók...</div>
       </main>
       <CardText>
         <small className="text-muted">

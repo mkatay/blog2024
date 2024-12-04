@@ -12,10 +12,10 @@ export const CardsContainer = ({posts}) => {
   return (
     <div className="container mt-2">
     <div className='row'>
-        <div className="col-md-8 ">
+        <div className="col-md-9 ">
              <BigCard {...selectedPost}/>
         </div>
-       <div className="col-md-4 d-flex gap-2 flex-column">
+       <div className="col-md-3 d-flex gap-2 flex-column">
          {posts.map(obj=><SmallCard key={obj.id} {...obj}  onClick={() =>setSelectedPost(obj)}/>)}
        </div>  
     </div>

@@ -11,9 +11,8 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [msg,setMsg]=useState(null)
+  const [msg,setMsg]=useState({})
 
- console.log(msg);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -22,19 +21,19 @@ export const UserProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+
   const logoutUser=async ()=>{
     await signOut(auth)    
-    setMsg(null)
+    setMsg({});
   }
 
   const signInUser=async (email,password)=>{
-    setMsg(null)
     try{
       await signInWithEmailAndPassword(auth,email,password)  
-      delete(msg?.err)
-      setMsg({...msg,signin:'Sikeres bejelntkezés!'})
+      setMsg({});
+      setMsg({signin:'Sikeres bejelntkezés!'})
      }catch(err){
-        setMsg({...msg,err:err.message})
+        setMsg({err:err.message})
        } 
   }
 
@@ -45,21 +44,22 @@ export const UserProvider = ({ children }) => {
         url:urlRedirect,
         handleCodeInApp: true,//the email verification link or password reset link should be handled by your application
       });
-      setMsg({...msg,signup:'Az email címre egy aktiváló link érkezett!'})  
+      setMsg({});
+      setMsg({signup:'Az email címre egy aktiváló link érkezett!'})  
     } catch (err) {
-      setMsg({...msg,err:err.message})
+      setMsg({err:err.message})
     }
   };
 
    const signUpUser =async (email, password,displayName) => {
     try{
-      await createUserWithEmailAndPassword(auth, email, password,displayName);
+      await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, {displayName})
+      setMsg({});
       sendEmailLink(email)
       logoutUser()
     }catch(err){
-      console.log(err.message)
-      setMsg({...msg,err:err.message})
+      setMsg({err:err.message})
     }
   };
 
@@ -68,21 +68,21 @@ export const UserProvider = ({ children }) => {
       if(displayName && photoURL) await updateProfile(auth.currentUser, {displayName,photoURL})
       else if (displayName) await updateProfile(auth.currentUser, {displayName})
       else if(photoURL) await updateProfile(auth.currentUser, {photoURL})
-      setMsg({...msg,update:'Sikeres módosítás!'})  
+      setMsg({});
+      setMsg({update:'Sikeres módosítás!'})  
     }catch(err){
-      console.log(err.message)
-      setMsg({...msg,err:err.message})
+        setMsg({err:err.message})
     }
   };
      
   const resetPassword =async (email) => {
     try{
       await sendPasswordResetEmail(auth, email);
-      console.log('A jelszóvisszaállítási email elküldve.');
-      setMsg({...msg,resetPw:'A jelszóvisszaállítási email elküldve.'})
+      setMsg({});
+      //console.log('A jelszóvisszaállítási email elküldve.');
+      setMsg({resetPw:'A jelszóvisszaállítási email elküldve.'})
     }catch(err){
-      console.log(err.message)
-      setMsg({...msg,err:err.message})
+      setMsg({err:err.message})
 
     }
   }
@@ -96,7 +96,7 @@ export const UserProvider = ({ children }) => {
   };
 
     return (
-    <UserContext.Provider value={{ user,msg,setMsg,logoutUser,signInUser,resetPassword,
+    <UserContext.Provider value={{ user,msg,logoutUser,signInUser,resetPassword,setMsg,
                                     sendEmailLink,deleteAccount,signUpUser,updateUser}}>
                                      
       {children}

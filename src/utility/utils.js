@@ -18,4 +18,15 @@ export const sanitizeHTML = (html) => {
     boxShadow:'0 0 5px var(--col3)'
   }                                    
   
-  
+  export const buttonStyle={
+    color:'var(--col1)',
+    textAlign:'center',
+    width:'100%',
+    backgroundColor:'var(--col5)'
+  }
+  export const disabledButtonStyle = {
+    backgroundColor: 'var(--col4)',
+    color: 'var(--col2)',
+    cursor: 'not-allowed',
+    opacity: 0.7, // Opció: csökkentett átláthatóság
+  };
