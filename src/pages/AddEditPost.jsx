@@ -41,10 +41,10 @@ console.log(user);
    
     try {
         const file = data.file[0];
-        const photoURL = await uploadFile(file);
-        console.log("Feltöltött fájl URL-je:", photoURL);
+        const uploadedPhoto = await uploadFile(file);
+        console.log("Feltöltött fájl URL-je:", uploadedPhoto);
         delete newPostData.file
-        await addPost({...newPostData,photoURL})
+        await addPost({...newPostData,uploadedPhoto})
         setUploaded(true);
         reset()
         setStory(null)
@@ -65,7 +65,7 @@ console.log(user);
       <form onSubmit={handleSubmit(onSubmit)}  className='container'>
    
             <div className="d-flex mb-3 gap-2 justify-content-center align-items-center">
-              <div style={{maxWidth:300,color:'var(--col1)'}}>
+              <div style={{maxWidth:300,color:'var(--col1)',paddingTop:'10px'}}>
                 <label >A bejegyzés címe:</label>
                 <input className='form-control' {...register('title', { required: true })} />
                 <p className='err-container'>{errors.title && 'A címet kötelező megadni!'}</p>

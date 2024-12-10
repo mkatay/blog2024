@@ -38,6 +38,16 @@ export const readPosts = (setPosts,selectedCateg) => {
   return unsubscribe;
 };
 
+export const readPost = async (id, setPost) => {
+  const docRef = doc(db, "posts", id);
+  try{
+    const docSnap = await getDoc(docRef);
+      setPost({ ...docSnap.data(), id: docSnap.id });
+  } catch (error) {
+    console.error("Hiba a dokumentum olvasása közben:", error);
+  }
+};
+
 /*
 export const deleteFile=async (photoURL)=>{
   console.log(photoURL);

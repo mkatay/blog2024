@@ -1,0 +1,5 @@
+
+  .form-check-input:checked {
+    background-color: var(--background);
+    border-color: var(--col1)
+}

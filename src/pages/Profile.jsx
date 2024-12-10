@@ -3,13 +3,13 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useForm } from 'react-hook-form';
 import {NotFound} from './NotFound'
-import { uploadFile } from '../utility/uploadFile';
+import { deleteFile, uploadFile } from '../utility/uploadFile';
 import { BarLoader } from 'react-spinners';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Toastify } from '../components/Toastify';
 import { Button } from 'reactstrap';
-import { buttonStyle, disabledButtonStyle } from '../utility/utils';
+import { buttonStyle, disabledButtonStyle, extractUrlAndId } from '../utility/utils';
 
 const middleStyle={
   position: 'absolute',
@@ -34,11 +34,13 @@ export const Profile = () => {
     }
   });
   const [loading, setLoading] = useState(false);
-  const [photo, setPhoto] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [avatarId, setAvatarId] = useState(null);
   const [uploaded, setUploaded] = useState(false);
 
   useEffect(()=>{
-    user?.photoURL && setPhoto(user.photoURL)
+    user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url)
+    user?.photoURL && setAvatarId(extractUrlAndId(user.photoURL).id)
   },[user])
   
  
@@ -49,9 +51,12 @@ export const Profile = () => {
     setLoading(true);
     try {
       const file =data?.file ? data.file[0] :null;
-      const photoURL=file? await uploadFile(file):null
-      photoURL && setUploaded(true);
-      updateUser(data.displayName,photoURL)   
+      const {url,id}=file? await uploadFile(file):null
+      console.log(url,id);  
+      //ki kell törölni a régit a Cloudinaryrol
+      await deleteFile(avatarId)
+      url && setUploaded(true);
+      updateUser(data.displayName,url+'/'+id)   
     } catch (error) {
       console.error("Hiba a fájl feltöltése közben", error);
     } finally {
@@ -90,7 +95,7 @@ console.log(errors);//ebbe az objektumba gyűlnek a hibák
                 }
             )}
               onChange={(e) =>
-                setPhoto(URL.createObjectURL(e.target.files[0]))
+                setAvatar(URL.createObjectURL(e.target.files[0]))
               }
             />
             <p className='err-container'>{errors?.file?.message }</p> 
@@ -100,11 +105,11 @@ console.log(errors);//ebbe az objektumba gyűlnek a hibák
         </div>
        </div> 
         {loading && <BarLoader />}
-        {uploaded && photo && <p>Sikeres kép feltöltés!</p>}
+        {uploaded && avatar && <p>Sikeres kép feltöltés!</p>}
       </form>
-      {photo && (
+      {avatar && (
             <div className='d-flex justify-content-center'>
-              <img className="img-thumbnail" src={photo} alt="postPhoto" style={{maxWidth:'200px'}}/>
+              <img className="img-thumbnail" src={avatar} alt="postPhoto" style={{maxWidth:'200px'}}/>
             </div>       
       )}  
       {msg && <Toastify {...msg} />}  

@@ -4,6 +4,19 @@ export const sanitizeHTML = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
   };
+
+ export  function extractUrlAndId(cloudinaryUrl) {
+    // Kivágjuk az URL-t az utolsó perjel (/) előtti részre
+    const lastSlashIndex = cloudinaryUrl.lastIndexOf('/');
+  
+    // Az URL-t a perjel előtti rész és a perjel utáni ID-ra bontjuk
+    const url = cloudinaryUrl.substring(0, lastSlashIndex); // Az URL, perjel nélkül
+    const id = cloudinaryUrl.substring(lastSlashIndex + 1); // Az ID, ami a perjel után van
+  
+    return { url, id };
+  }
+  
+  
   
 
   export const middleStyle={

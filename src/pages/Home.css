@@ -68,7 +68,8 @@ background-color: var(--col2);
 .mycard-title {
   color: white;
   width: 100%;
-  background: var(--col5);
+  /*background: var(--col5);*/
+  background-color: rgba(0, 0, 0, .7);
   padding: 0.5rem 1rem;
   text-decoration: none;
   font-size: 1.2rem;
@@ -86,22 +87,26 @@ background-color: var(--col2);
 @media (max-width: 768px) {
   .hero{
     height: 60vh;
+    background: url('hero1.jpg') no-repeat center center / cover;
   }
   .hero h1 {
-    font-size: 2rem;
+    font-size: 1rem;
    
   }
 
   .hero h6 {
-    font-size: 1rem;
+    font-size: 0.6rem;
   }
 
   .home .mycard {
-    width: 150px;
+    width: 100px;
     height: 150px;
   }
   .home .mycard-title{
     font-size: 0.8rem;
+  }
+  .home .cards-container {
+    margin-top: -5rem;
   }
 }
 

@@ -20,6 +20,7 @@ import {
 } from 'reactstrap';
 import { UserContext } from '../context/UserContext';
 import { useContext } from 'react';
+import { extractUrlAndId } from '../utility/utils';
 
 
 
@@ -31,7 +32,7 @@ export const Header=()=> {
   const [avatar,setAvatar]=useState(null)
 
   useEffect(()=>{
-    user?.photoURL && setAvatar(user.photoURL)
+    user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url)
     !user && setAvatar(null)
   },[user,user?.photoURL])
 
@@ -56,7 +57,7 @@ export const Header=()=> {
 console.log(avatar)
   return (
     <div className='home'>
-      <Navbar expand='md' fixed='top' dark className={isHidden ? "menu hidden" : "menu"} style={{background:'linear-gradient(to bottom, var(--col5), #718ab2)'}}>
+      <Navbar expand='md' fixed='top' dark className={isHidden ? "menu hidden" : "menu"} style={{background:'linear-gradient(to bottom, var(--col5), var(--col3))'}}>
      
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

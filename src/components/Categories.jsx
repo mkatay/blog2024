@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { Form, FormGroup, Input, Label } from 'reactstrap'
 import { CategContext } from '../context/CategContext'
+import './Categories.css'
 
 export const Categories = ({selectedCateg,setSelectedCateg}) => {
     const {categories}=useContext(CategContext)
@@ -13,7 +14,8 @@ export const Categories = ({selectedCateg,setSelectedCateg}) => {
     
   return (
     <div>
-      <Form className='d-flex justify-content-center flex-wrap' style={{color:'var(--col1',borderBottom:'1px solid var(--col1)'}}>
+      <Form className='d-flex p-2 justify-content-center flex-wrap' 
+        style={{color:'var(--col1)'}}>
         {categories && categories.map(obj=>
             <FormGroup    check    inline  key={obj.name}>
                 <Input type="checkbox" value={obj.name} onChange={handleChange} checked={selectedCateg.includes(obj.name)}/>
