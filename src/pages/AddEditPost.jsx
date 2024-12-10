@@ -41,10 +41,10 @@ console.log(user);
    
     try {
         const file = data.file[0];
-        const uploadedPhoto = await uploadFile(file);
-        console.log("Feltöltött fájl URL-je:", uploadedPhoto);
+        const {url,id} = await uploadFile(file);
+        console.log("Feltöltött fájl URL-je:", url,id);
         delete newPostData.file
-        await addPost({...newPostData,uploadedPhoto})
+        await addPost({...newPostData,photo:{url,id}})
         setUploaded(true);
         reset()
         setStory(null)
