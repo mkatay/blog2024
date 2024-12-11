@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useForm } from 'react-hook-form';
 import {NotFound} from './NotFound'
-import { deleteFile, uploadFile } from '../utility/uploadFile';
+import {  uploadFile } from '../utility/uploadFile';
 import { BarLoader } from 'react-spinners';
 import { useState } from 'react';
 import { useEffect } from 'react';

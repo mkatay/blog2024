@@ -58,7 +58,7 @@ console.log(user);
   };
                                   
 //console.log(errors);//ebbe az objektumba gyűlnek a hibák
-//console.log(story);
+console.log(story);
 
   return (
     <div className="page ">
@@ -79,7 +79,7 @@ console.log(user);
               </div>
             </div>
 
-            <Story setStory={setStory} uploaded={uploaded}/>
+           <Story setStory={setStory} uploaded={uploaded}/>
             <p className="err-container text-center">{(!story ||sanitizeHTML(story).length==0)  && 'Részletes leírás kötelező!'} </p>
 <div className="d-flex flex-wrap gap-2 justify-content-center mt-2">
         <div>

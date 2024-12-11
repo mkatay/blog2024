@@ -13,8 +13,7 @@ background-color: var(--col2);
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: url('hero2.jpg') no-repeat center center / cover;
-  /* A háttérkép közvetlenül a hero div-en */
+  
   overflow: hidden;
 }
 
@@ -85,11 +84,7 @@ background-color: var(--col2);
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .hero{
-    height: 60vh;
-    background: url('hero1.jpg') no-repeat center center / cover;
-  }
-  .hero h1 {
+    .hero h1 {
     font-size: 1rem;
    
   }
