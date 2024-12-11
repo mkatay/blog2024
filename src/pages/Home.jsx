@@ -19,7 +19,7 @@ export const Home = () => {
         <ParallaxBanner
           layers={[
             {
-              image: "hero.jpg",
+              image: "hero_updated.jpg",
               speed: -30, // Parallax sebesség
             },
           ]}

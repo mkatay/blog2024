@@ -57,7 +57,7 @@ export const Header=()=> {
 console.log(avatar)
   return (
     <div className='home'>
-      <Navbar expand='md' fixed='top' dark className={isHidden ? "menu hidden" : "menu"} style={{background:'linear-gradient(to bottom, var(--col5), var(--col3))'}}>
+      <Navbar expand='md' fixed='top' dark className={isHidden ? "menu hidden" : "menu"} style={{backgroundColor:'#115167'}}>
      
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
