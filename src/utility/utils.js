@@ -17,6 +17,18 @@ export const sanitizeHTML = (html) => {
   }
   
   
+export const truncatedStory = (description) => {
+  const maxLength = 40; // A maximális hossz 40 karakter
+  const sanitizedDescription = sanitizeHTML(description);
+  if (sanitizedDescription.length > maxLength) {
+    const lastSpaceIndex = sanitizedDescription.lastIndexOf(" ", maxLength);
+    if (lastSpaceIndex !== -1) return   sanitizedDescription.substring(0, lastSpaceIndex) + "...";
+    else return sanitizedDescription.substring(0, maxLength) + "...";
+  }
+  else return sanitizedDescription
+};
+                            
+  
   
 
   export const middleStyle={

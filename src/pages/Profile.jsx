@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { Toastify } from '../components/Toastify';
 import { Button } from 'reactstrap';
 import { buttonStyle, disabledButtonStyle, extractUrlAndId } from '../utility/utils';
+import { useConfirm } from 'material-ui-confirm';
 
 const middleStyle={
   position: 'absolute',
@@ -26,7 +27,7 @@ const middleStyle={
 
 
 export const Profile = () => {
-  const { user,updateUser,msg} = useContext(UserContext);
+  const { user,updateUser,msg,deleteAccount,logoutUser} = useContext(UserContext);
 
   const {register,handleSubmit,formState: { errors },reset} = useForm({
     defaultValues: {
@@ -37,6 +38,7 @@ export const Profile = () => {
   const [avatar, setAvatar] = useState(null);
   const [avatarId, setAvatarId] = useState(null);
   const [uploaded, setUploaded] = useState(false);
+  const confirm = useConfirm();
 
   useEffect(()=>{
     user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url)
@@ -65,6 +67,22 @@ export const Profile = () => {
 };
                                 
 console.log(errors);//ebbe az objektumba gyűlnek a hibák
+
+const handleDelete = async () => {
+  try {
+    await  confirm({ description:'Ez egy visszavonhatatlan művelet!',
+                    confirmationText:'igen',
+                    cancellationText:'mégsem',
+                    title:'Biztosan ki szeretnéd törölni a felhasználói fiókodat?'
+           })
+    //await deleteProfile(user.uid) 
+    await deleteAccount()
+    // Kiléptetés a sikeres törlés után
+    logoutUser()
+  } catch (error) {
+      console.log('mégsem:',error);
+  }
+}
 
   return (
     <div className="page ">
@@ -107,6 +125,7 @@ console.log(errors);//ebbe az objektumba gyűlnek a hibák
         {loading && <BarLoader />}
         {uploaded && avatar && <p>Sikeres kép feltöltés!</p>}
       </form>
+
       {avatar && (
             <div className='d-flex justify-content-center'>
               <img className="img-thumbnail" src={avatar} alt="postPhoto" style={{maxWidth:'200px'}}/>
@@ -114,6 +133,9 @@ console.log(errors);//ebbe az objektumba gyűlnek a hibák
       )}  
       {msg && <Toastify {...msg} />}  
       </div>
+      <button className="btn btn-danger m-2" onClick={handleDelete}>
+          Felhasználói fiók törlése
+      </button>
     </div>
   )
 }
