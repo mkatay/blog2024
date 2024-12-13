@@ -15,12 +15,12 @@ export const DropDown = ({categories, selectedCategory, setSelectedCategory }) =
     <div style={{maxWidth:300,marginTop:20}}>
       <Dropdown isOpen={dropdownOpen} toggle={toggle} >
         <DropdownToggle caret>
-          {selectedCategory ? selectedCategory.name : 'Kategória'}
+          {selectedCategory ? selectedCategory : 'Kategória'}
         </DropdownToggle>
         <DropdownMenu>
           {categories ?
             categories.map((obj) => (
-              <DropdownItem key={obj.id} onClick={() => setSelectedCategory(obj)}>
+              <DropdownItem key={obj.id} onClick={() => setSelectedCategory(obj.name)}>
                 {obj.name}
               </DropdownItem>
             ))

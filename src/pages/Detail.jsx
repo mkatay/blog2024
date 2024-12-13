@@ -41,33 +41,34 @@ export const Detail = () => {
   
   return (
     <div className='page'>
-      <button className='btn btn-secondary m-2' onClick={()=>navigate('/posts')}>vissza...</button>
+      <button className='btn btn-secondary m-2' style={{position:'fixed',bottom:0,right:0}} onClick={()=>navigate('/posts')}>vissza...</button>
       {post && 
-      <>
+      <div className='container p-4 ' >
       
-        <div className="row gap-1 p-5">
-          <img  className="post-photo col" src={post?.photo['url']} alt={post?.title}   />
-          <div className="post-story col d-flex flex-column">
+        <div className='post-container'>
+          <img  className="post-photo" src={post?.photo['url']} alt={post?.title}   />
+          <div className="post-story ">
               <h3>{post.title}</h3>
               <p className="timestamp">{elapsedTime(post.timestamp)}</p>
              <p  >{parse(post?.story)}</p>
           </div>
          
         </div>
-      </>
-      }
-      <div className="d-flex justify-content-around">
+         <div className="d-flex justify-content-around p-3 border-top">
          <div className='d-flex gap-2 align-items-center'>
             <FaThumbsUp className='  icon' />
             <span>likeok száma...</span>
           </div>
           {(user && post && user.uid==post.userId)   &&
             <div>
-              <FaTrash className='text-danger  icon' onClick={handleDelete}/>
-              <FaPen className='  icon' style={{color:'var(--col3)'}} />
+              <FaTrash style={{color:'var(--accent)',marginRight:'1rem'}}  className='icon' onClick={handleDelete}/>
+              <FaPen className='icon' style={{color:'var(--primary)'}}   onClick={()=>navigate('/update/'+post.id)}/>
             </div>
           }
       </div>
+      </div>
+      }
+     
       
     </div>
   )

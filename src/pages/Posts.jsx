@@ -1,6 +1,5 @@
 import React from 'react'
 import { Categories } from '../components/Categories'
-import { Footer } from '../components/Footer'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react'

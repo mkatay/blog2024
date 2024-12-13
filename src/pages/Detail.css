@@ -1,11 +1,25 @@
-.post-photo{
-    max-width:100% ;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    
-}
+
 .icon{
     font-size: 2rem;
     cursor: pointer;
-  }         
+  }   
+  .post-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+    justify-content: center;
+  }      
+  .post-photo { 
+   max-width: 500px; /* Maximális szélesség beállítása */
+    height: auto;
+   object-fit: contain;
+    
+
+  }
+
+
+  .timestamp {
+    font-size: 0.9rem;
+    color: gray; /* Példa stílus, opcionális */
+  }
+  

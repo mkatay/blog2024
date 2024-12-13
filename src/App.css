@@ -10,7 +10,7 @@
   }
   .page{
         min-height: 100vh;  
-        background-color: var(--col5);
+        background-color: var(--background);
         padding-top: 55px;
        color:var(--text);
       }

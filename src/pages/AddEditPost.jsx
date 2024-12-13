@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { DropDown } from '../components/DropDown';
 import { useContext } from 'react';
@@ -7,37 +7,69 @@ import { CategContext } from '../context/CategContext';
 import { NotFound } from './NotFound';
 import { Story } from '../components/Story';
 import { uploadFile } from '../utility/uploadFile';
-import { addPost } from '../utility/crudUtility';
+import { addPost, readPost, updatePost } from '../utility/crudUtility';
 import { sanitizeHTML } from '../utility/utils';
 import { BarLoader } from 'react-spinners';
 import { Alerts } from '../components/Alerts';
+import {useParams} from 'react-router-dom'
 
 export const AddEditPost=()=> {
   const { user } = useContext(UserContext);
   const { categories } = useContext(CategContext);       
-  const {register, handleSubmit,formState: { errors },reset} = useForm();
+  const {register, handleSubmit,formState: { errors },reset,setValue} = useForm(/*{mode:"onChange"}*/);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [story,setStory]=useState(null)
+  const [story,setStory]=useState('')
   const [photo, setPhoto] = useState(null);  
   const [loading, setLoading] = useState(false);   
-  const [uploaded, setUploaded] = useState(false);    
+  const [uploaded, setUploaded] = useState(false);
+  const [post, setPost] = useState(null); // editáláshoz kell    
+
+  const params = useParams();
+
+  useEffect(() => {
+    if (params?.id) {
+      readPost(params.id, setPost);
+    }
+  }, [params?.id]);
+
+  useEffect(() => {
+    if (post) {
+      setValue("title", post?.title);
+      setValue("category", post?.category);
+      setPhoto(post?.photo['url']);
+      setStory(post?.story)
+      setSelectedCategory(post?.category)
+    }
+  }, [post]);
 
   if (!user) return <NotFound />
-console.log(user);
 
  const onSubmit =async (data) => {
     setLoading(true);
-    console.log('data:',data);
+    //console.log('data:',data);
+    if (params.id) {
+      //update esetén
+      try {
+        console.log('update:',data,story);
+        
+        updatePost(params.id, { ...data, story });
+        setUploaded(true);
+      } catch (err) {
+        console.error("Hiba update közben", err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      //új post esetén
     
     const newPostData={
       ...data,
-      category: selectedCategory.name,
+      category: selectedCategory,
       story, 
       author: user.displayName,
       userId: user.uid,
       likes:[]            
     }
-    //console.log('postdata:',newPostData);
    
     try {
         const file = data.file[0];
@@ -56,10 +88,7 @@ console.log(user);
       }
         setUploaded(true);
   };
-                                  
-//console.log(errors);//ebbe az objektumba gyűlnek a hibák
-console.log(story);
-
+}                              
   return (
     <div className="page ">
       <form onSubmit={handleSubmit(onSubmit)}  className='container'>
@@ -79,16 +108,17 @@ console.log(story);
               </div>
             </div>
 
-           <Story setStory={setStory} uploaded={uploaded}/>
+           <Story setStory={setStory} uploaded={uploaded} story={story}/>
             <p className="err-container text-center">{(!story ||sanitizeHTML(story).length==0)  && 'Részletes leírás kötelező!'} </p>
 <div className="d-flex flex-wrap gap-2 justify-content-center mt-2">
         <div>
-                <input className="form-control" type="file"
+                <input className="form-control" type="file" disabled={params.id}
                   {...register("file", 
-                    {
+                    params.id ? {} // Ha disabled, nincsenek validációs szabályok, update esetén
+                    : {                 
                       required: true,
                       validate: (value) => {
-                        console.log(value[0]);
+                        //console.log(value[0]);
                         const acceptedFormats = ["jpg", "png"];
                         const fileExtension = value[0]?.name.split(".").pop().toLowerCase();
                         if (!acceptedFormats.includes(fileExtension))
@@ -98,6 +128,7 @@ console.log(story);
                         return true;
                       },
                     }
+                    
                 )}
                   onChange={(e) =>
                     setPhoto(URL.createObjectURL(e.target.files[0]))
@@ -110,7 +141,7 @@ console.log(story);
            
             </div>
             <div>
-              <input  className='btn btn-primary 'type="submit" disabled={!selectedCategory?.id || sanitizeHTML(story).length==0}/>
+              <input  className='btn btn-primary 'type="submit" disabled={!selectedCategory || sanitizeHTML(story).length==0}/>
             </div>
             {loading && <BarLoader />}
             {uploaded && <Alerts txt="Sikeres feltöltés!" />}

@@ -17,7 +17,7 @@ export const sanitizeHTML = (html) => {
   }
   
   
-export const truncatedStory = (description) => {
+/*export const truncatedStory = (description) => {
   const maxLength = 40; // A maximális hossz 40 karakter
   const sanitizedDescription = sanitizeHTML(description);
   if (sanitizedDescription.length > maxLength) {
@@ -26,9 +26,19 @@ export const truncatedStory = (description) => {
     else return sanitizedDescription.substring(0, maxLength) + "...";
   }
   else return sanitizedDescription
-};
+};*/
                             
+export const truncatedStory = (description) => {
+  const maxLength = 60; // A maximális hossz 40 karakter
+  const sanitizedDescription = sanitizeHTML(description);
+  if (sanitizedDescription.length <= maxLength) return sanitizedDescription;
+
+  const truncated = sanitizedDescription.slice(0, sanitizedDescription.lastIndexOf(" ", maxLength));
+  console.log(truncated);
   
+  return truncated || sanitizedDescription.slice(0, maxLength) + "...";
+};
+
   
 
   export const middleStyle={
