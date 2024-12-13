@@ -11,6 +11,7 @@ import { Toastify } from '../components/Toastify';
 import { Button } from 'reactstrap';
 import { buttonStyle, disabledButtonStyle, extractUrlAndId } from '../utility/utils';
 import { useConfirm } from 'material-ui-confirm';
+import { useNavigate } from 'react-router-dom';
 
 const middleStyle={
   position: 'absolute',
@@ -39,6 +40,11 @@ export const Profile = () => {
   const [avatarId, setAvatarId] = useState(null);
   const [uploaded, setUploaded] = useState(false);
   const confirm = useConfirm();
+  const navigate=useNavigate()
+
+  useEffect(()=>{
+    !user && navigate('/')
+  },[user])
 
   useEffect(()=>{
     user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url)

@@ -1,0 +1,11 @@
+.post-photo{
+    max-width:100% ;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    
+}
+.icon{
+    font-size: 2rem;
+    cursor: pointer;
+  }         

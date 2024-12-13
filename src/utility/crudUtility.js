@@ -48,6 +48,13 @@ export const readPost = async (id, setPost) => {
   }
 };
 
+export const deletePost=async (id)=>{
+  //console.log('id:',id)
+  const docRef= doc(db, "posts", id);
+  await deleteDoc(docRef)
+}
+
+
 /*
 export const deleteFile=async (photoURL)=>{
   console.log(photoURL);
