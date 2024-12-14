@@ -10,6 +10,7 @@ import { FaPen, FaThumbsUp, FaTrash } from 'react-icons/fa6';
 import { UserContext } from '../context/UserContext';
 import { confirm } from 'material-ui-confirm';
 import { elapsedTime } from '../utility/elapsedTime';
+import { delPhoto } from '../utility/uploadFile';
 
 export const Detail = () => {
   const {user}=useContext(UserContext)
@@ -32,9 +33,10 @@ export const Detail = () => {
                       title:'Biztosan ki szeretnéd törölni?'
              })
         deletePost(post.id)
+        delPhoto(post.photo['id'])
         navigate('/')
     } catch (error) {
-        console.error('mégsem');
+        console.error('mégsem',error);
     }
   }
   

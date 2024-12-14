@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useForm } from 'react-hook-form';
 import {NotFound} from './NotFound'
-import {  uploadFile } from '../utility/uploadFile';
+import {  delPhoto, uploadFile } from '../utility/uploadFile';
 import { BarLoader } from 'react-spinners';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -62,7 +62,7 @@ export const Profile = () => {
       const {url,id}=file? await uploadFile(file):null
       console.log(url,id);  
       //ki kell törölni a régit a Cloudinaryrol
-      await deleteFile(avatarId)
+      await delPhoto(avatarId)
       url && setUploaded(true);
       updateUser(data.displayName,url+'/'+id)   
     } catch (error) {
