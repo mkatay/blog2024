@@ -14,9 +14,9 @@ export const uploadFile = async (file) => {
     throw new Error('Fájl feltöltésének hibája.');
   }
 };
-//const url="https://server-todo.onrender.com";
 
-const url="http://localhost:5000"
+const url="https://blog2024server.onrender.com"
+//const url="http://localhost:5000"
 //const url = import.meta.env.VITE_API_URL; 
 
 export const delPhoto= async (id) => {

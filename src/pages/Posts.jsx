@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { readPosts } from '../utility/crudUtility'
 import { CardsContainer } from '../components/CardsContainer'
+import { SearchBox } from '../components/SearchBox'
 
 export const Posts = () => {
   const [posts,setPosts]=useState([])
@@ -21,7 +22,13 @@ export const Posts = () => {
   
   return (
     <div className='page'>
-      <Categories selectedCateg={selectedCateg} setSelectedCateg={setSelectedCateg}/>
+      <div className='d-flex flex-wrap gap-1 justify-content-around pt-3' >
+        <Categories selectedCateg={selectedCateg} setSelectedCateg={setSelectedCateg}/>
+        {posts && <SearchBox items={posts.map(obj=>({id:obj.id,name:obj.title}))}/>}
+      </div>
+        
+      
+      
       {posts.length>0 && <CardsContainer posts={posts}/>}
 
     </div>

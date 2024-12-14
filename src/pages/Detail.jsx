@@ -56,7 +56,7 @@ export const Detail = () => {
           </div>
          
         </div>
-         <div className="d-flex justify-content-around p-3 border-top">
+         <div className="d-flex justify-content-around p-3 border-top mt-3">
          <div className='d-flex gap-2 align-items-center'>
             <FaThumbsUp className='  icon' />
             <span>likeok száma...</span>

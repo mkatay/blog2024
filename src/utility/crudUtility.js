@@ -1,12 +1,7 @@
 //a backend kölünválasztva
-import {db,storage} from "./firebaseApp";
-import {collection, addDoc,doc,deleteDoc,query,getDoc,limit,getDocs,
-  where,arrayUnion,arrayRemove,serverTimestamp, updateDoc,orderBy,onSnapshot } from "firebase/firestore";
-import {ref, deleteObject} from "firebase/storage"
-//import { deleteAvatar } from "./uploadFile";
-import { getAuth, deleteUser, signOut } from 'firebase/auth';
-
-
+import {db} from "./firebaseApp";
+import {collection, addDoc,doc,deleteDoc,query,getDoc,
+  where,serverTimestamp, updateDoc,orderBy,onSnapshot } from "firebase/firestore";
 
 //aszinkron:Az onSnapshot függvény egy eseményfigyelő, amely figyeli 
 //a Firestore adatbázisban történő változásokat, akkor az onSnapshot meghívódik, és frissíti az aktuális adatokkal.
@@ -33,7 +28,7 @@ export const readPosts = (setPosts,selectedCateg) => {
   const q =selectedCateg.length==0 ?  
     query(collectionRef, orderBy('timestamp', 'desc'))
     : 
-    query(collectionRef,where('category','in',selectedCateg))
+    query(collectionRef,where('category','in',selectedCateg),orderBy('timestamp', 'desc'))
   const unsubscribe = onSnapshot(q, (snapshot) => {
     setPosts(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
   });

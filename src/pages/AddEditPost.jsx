@@ -141,7 +141,7 @@ export const AddEditPost=()=> {
            
             </div>
             <div>
-              <input  className='btn btn-primary 'type="submit" disabled={!selectedCategory || sanitizeHTML(story).length==0}/>
+              <input  className='btn btn-primary 'type="submit" disabled={!selectedCategory || sanitizeHTML(story).length==0 || loading}/>
             </div>
             {loading && <BarLoader />}
             {uploaded && <Alerts txt="Sikeres feltöltés!" />}
