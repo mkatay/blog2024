@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { deletePost, readPost } from '../utility/crudUtility';
+import { deletePost,readPost, toggleLike } from '../utility/crudUtility';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import parse from "html-react-parser";
@@ -11,16 +11,19 @@ import { UserContext } from '../context/UserContext';
 import { confirm } from 'material-ui-confirm';
 import { elapsedTime } from '../utility/elapsedTime';
 import { delPhoto } from '../utility/uploadFile';
+import {Alerts} from '../components/Alerts'
 
 export const Detail = () => {
   const {user}=useContext(UserContext)
   const [post,setPost]=useState(null)
+  const [likesNr,setLikesNr]=useState(0)
+  const [txt,setTxt]=useState(null)
   const params=useParams()
   const navigate=useNavigate()
   console.log(params);
 
   useEffect(()=>{
-    readPost(params.id,setPost)
+    readPost(params.id,setPost,setLikesNr)
   },[]) 
 
   post && console.log(post);
@@ -39,7 +42,10 @@ export const Detail = () => {
         console.error('mégsem',error);
     }
   }
-  
+  const handleLikes=()=>{
+    if(!user) setTxt("Csak bejelentkezett felhasználók likeolhatnak!" )
+    else toggleLike(post.id,user.uid,setLikesNr)
+  }
   
   return (
     <div className='page'>
@@ -58,8 +64,8 @@ export const Detail = () => {
         </div>
          <div className="d-flex justify-content-around p-3 border-top mt-3">
          <div className='d-flex gap-2 align-items-center'>
-            <FaThumbsUp className='  icon' />
-            <span>likeok száma...</span>
+            <FaThumbsUp className='  icon' onClick={handleLikes} />
+            <span style={{padding:'2px'}}>{likesNr}</span>
           </div>
           {(user && post && user.uid==post.userId)   &&
             <div>
@@ -70,7 +76,7 @@ export const Detail = () => {
       </div>
       </div>
       }
-     
+     {txt && <Alerts txt={txt} err={false}/> }
       
     </div>
   )
