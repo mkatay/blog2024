@@ -24,7 +24,7 @@ export const truncatedStory = (description) => {
   if (sanitizedDescription.length <= maxLength) return sanitizedDescription;
 
   const truncated = sanitizedDescription.slice(0, sanitizedDescription.lastIndexOf(" ", maxLength));
-  console.log(truncated);
+ // console.log(truncated);
   
   return truncated || sanitizedDescription.slice(0, maxLength) + "...";
 };

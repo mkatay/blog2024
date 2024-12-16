@@ -47,7 +47,7 @@ export const readPost = async (id, setPost,setLikes) => {
   }
 };
 ///az oldallapozáshoz:
-/*export const createMainQuery = (selectedCateg) => {
+export const createMainQuery = (selectedCateg) => {
   return selectedCateg.length
     ? query(
         collection(db, "posts"),
@@ -58,7 +58,8 @@ export const readPost = async (id, setPost,setLikes) => {
         collection(db, "posts"),
         orderBy("created_timestamp", "desc")
       );
-};*/
+};
+
 export const deletePost=async (id)=>{
   //console.log('id:',id)
   const docRef= doc(db, "posts", id);

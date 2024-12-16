@@ -48,10 +48,10 @@ export const Detail = () => {
   }
   
   return (
-    <div className='page'>
+    <div className='page details'>
       <button className='btn btn-secondary m-2' style={{position:'fixed',bottom:0,right:0}} onClick={()=>navigate('/posts')}>vissza...</button>
       {post && 
-      <div className='container p-4 ' >
+      <div className='container p-3 ' >
       
         <div className='post-container'>
           <img  className="post-photo" src={post?.photo['url']} alt={post?.title}   />
@@ -63,8 +63,8 @@ export const Detail = () => {
          
         </div>
          <div className="d-flex justify-content-around p-3 border-top mt-3">
-         <div className='d-flex gap-2 align-items-center'>
-            <FaThumbsUp className='  icon' onClick={handleLikes} />
+         <div className='d-flex gap-2 align-items-center'style={{color:"var(--col5)"}}>
+            <FaThumbsUp className='icon' onClick={handleLikes} />
             <span style={{padding:'2px'}}>{likesNr}</span>
           </div>
           {(user && post && user.uid==post.userId)   &&
