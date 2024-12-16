@@ -36,11 +36,11 @@ export const readPosts = (setPosts,selectedCateg) => {
   return unsubscribe;
 };
 
-export const readPost = async (id, setPost,setLikes) => {
+export const readPost = async (id, setPost,setLikesNr=null) => {
   const docRef = doc(db, "posts", id);
   try{
     const docSnap = await getDoc(docRef);
-      setLikes(docSnap.data().likes?.length || 0)
+      setLikesNr && setLikesNr(docSnap.data().likes?.length || 0)
       setPost({ ...docSnap.data(), id: docSnap.id });
   } catch (error) {
     console.error("Hiba a dokumentum olvasása közben:", error);
