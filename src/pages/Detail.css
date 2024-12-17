@@ -93,6 +93,9 @@
     .details .post-story h3 {
       font-size: 1.5rem;
     }
+    .details .post-story p {
+      font-size: 0.6rem!important;
+    }
     .details .icon {
       font-size: 1rem;
     }
