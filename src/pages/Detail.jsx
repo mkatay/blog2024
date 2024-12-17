@@ -48,7 +48,7 @@ export const Detail = () => {
   }
   
   return (
-    <div className='page details'>
+    <div className='details'>
       <button className='btn btn-secondary m-2' style={{position:'fixed',bottom:0,right:0}} onClick={()=>navigate('/posts')}>vissza...</button>
       {post && 
       <div className='container p-3 ' >

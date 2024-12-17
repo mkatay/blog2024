@@ -15,7 +15,7 @@ export const Categories = ({selectedCateg,setSelectedCateg}) => {
   return (
     <div>
       <Form className='d-flex p-2 justify-content-center flex-wrap' 
-        style={{color:'var(--col1)'}}>
+        style={{color:'var(--background)'}}>
         {categories && categories.map(obj=>
             <FormGroup    check    inline  key={obj.name}>
                 <Input type="checkbox" value={obj.name} onChange={handleChange} checked={selectedCateg.includes(obj.name)}/>
