@@ -117,7 +117,7 @@ export const AddEditPost=()=> {
                 </div>
                   
                 )
-                : <div style={{width:'300px',height:'200px',border:'2px dashed gray'}}></div>
+                : <div style={{width:'300px',height:'200px',border:'2px dashed lightgray',borderRadius:'7px',marginBottom:'10px'}}></div>
               }     
             </div>
           </div>
@@ -154,7 +154,7 @@ export const AddEditPost=()=> {
        
             <div className='d-flex justify-content-around w-100'>
               <div>
-                 <input className='btn ' type="button" value="cancel" style={buttonStyle} onClick={()=>navigate('/')}/>
+                 <input className='btn btn-outline-secondary ' type="button" value="cancel"  onClick={()=>navigate('/')}/>
               </div>
               <div>
                 <input className='btn ' style={buttonStyle} type="submit" disabled={!selectedCategory || sanitizeHTML(story).length==0 || loading}/> 
