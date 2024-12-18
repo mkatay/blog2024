@@ -38,8 +38,8 @@ button:hover{
   color: #FFD700 !important;
 }
 .avatarIcon{
-  width: 30px!important;
-  height: 30px;
+  width: 40px!important;
+  height: 40px;
   padding: 1px;
   border:1px solid white;
   border-radius: 50%;
@@ -48,4 +48,13 @@ button:hover{
 .nav-link{
   font-weight: 600;
   color:var(--text)
+}
+.dropdown a{
+  text-decoration:none;
+  color:var(--text);
+
+}
+
+.dropdown a:hover{
+  color:var(--col5);
 }

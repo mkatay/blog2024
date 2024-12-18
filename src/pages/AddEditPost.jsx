@@ -8,10 +8,10 @@ import { NotFound } from './NotFound';
 import { Story } from '../components/Story';
 import { uploadFile } from '../utility/uploadFile';
 import { addPost, readPost, updatePost } from '../utility/crudUtility';
-import { sanitizeHTML } from '../utility/utils';
+import { buttonStyle, compressImage, sanitizeHTML } from '../utility/utils';
 import { BarLoader } from 'react-spinners';
 import { Alerts } from '../components/Alerts';
-import {useParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 export const AddEditPost=()=> {
   const { user } = useContext(UserContext);
@@ -25,7 +25,7 @@ export const AddEditPost=()=> {
   const [post, setPost] = useState(null); // editáláshoz kell    
 
   const params = useParams();
-
+  const navigate=useNavigate()
   useEffect(() => {
     if (params?.id) {
       readPost(params.id, setPost);
@@ -73,7 +73,10 @@ export const AddEditPost=()=> {
    
     try {
         const file = data.file[0];
-        const {url,id} = await uploadFile(file);
+        // Kép kicsinyítése
+        const compressedFile = await compressImage(file);
+        // Fájl feltöltése
+        const { url, id } = await uploadFile(compressedFile);
         console.log("Feltöltött fájl URL-je:", url,id);
         delete newPostData.file
         await addPost({...newPostData,photo:{url,id}})
@@ -91,10 +94,10 @@ export const AddEditPost=()=> {
 }                              
   return (
     <div className="page ">
-      <form onSubmit={handleSubmit(onSubmit)}  className='container'>
-   
-            <div className="d-flex mb-3 gap-2 justify-content-center align-items-center">
-              <div style={{maxWidth:300,color:'var(--col1)',paddingTop:'10px'}}>
+      <form onSubmit={handleSubmit(onSubmit)}  className='container ' style={{maxWidth: '800px',background:'white',boxShadow:'0 4px 8px rgba(0, 0, 0, 0.1)',borderRadius:'8px',padding:'15px' }}>
+        <div className="row align-items-center">
+            <div className="col d-flex flex-column pt-3 ">
+              <div style={{maxWidth:300,color:'var(--col5)',paddingTop:'10px'}}>
                 <label >A bejegyzés címe:</label>
                 <input className='form-control' {...register('title', { required: true })} />
                 <p className='err-container'>{errors.title && 'A címet kötelező megadni!'}</p>
@@ -104,27 +107,34 @@ export const AddEditPost=()=> {
                 setSelectedCategory={setSelectedCategory} 
                 selectedCategory={selectedCategory}
                 />
-               <p className="err-container">{!selectedCategory?.id && 'A kategória kiválasztása kötelező!'} </p>
+               <p className="err-container">{!selectedCategory && 'A kategória kiválasztása kötelező!'} </p>
               </div>
             </div>
-
-           <Story setStory={setStory} uploaded={uploaded} story={story}/>
-            <p className="err-container text-center">{(!story ||sanitizeHTML(story).length==0)  && 'Részletes leírás kötelező!'} </p>
-<div className="d-flex flex-wrap gap-2 justify-content-center mt-2">
-        <div>
+            <div className="col pt-4">
+                {photo ? (
+                <div className='d-flex justify-content-center'>
+                  <img className="img-thumbnail" src={photo} alt="postPhoto" style={{maxWidth:'300px'}}/>
+                </div>
+                  
+                )
+                : <div style={{width:'300px',height:'200px',border:'2px dashed gray'}}></div>
+              }     
+            </div>
+          </div>
+            <div>
                 <input className="form-control" type="file" disabled={params.id}
                   {...register("file", 
                     params.id ? {} // Ha disabled, nincsenek validációs szabályok, update esetén
                     : {                 
                       required: true,
-                      validate: (value) => {
+                     validate: (value) => {
                         //console.log(value[0]);
                         const acceptedFormats = ["jpg", "png"];
                         const fileExtension = value[0]?.name.split(".").pop().toLowerCase();
                         if (!acceptedFormats.includes(fileExtension))
                           return "Invalid file format.";
-                        if (value[0].size > 1 * 1000 * 1024)
-                          return "Az engedélyezett maximális file méret 1MB.";
+                        /*if (value[0].size > 1 * 1000 * 1024)
+                          return "Az engedélyezett maximális file méret 1MB.";*/
                         return true;
                       },
                     }
@@ -134,25 +144,28 @@ export const AddEditPost=()=> {
                     setPhoto(URL.createObjectURL(e.target.files[0]))
                   }
                 />
-               {
-                <p className='err-container'>{errors?.file?.message }</p>  ||
-                <p className='err-container'>  {errors?.file && 'Fotó feltöltése kötelező!'}</p>
-                }
-           
+               {<p className='err-container'>{errors?.file?.message }</p>}
+                {<p className='err-container'>  {errors?.file && 'Fotó feltöltése kötelező!'}</p>}
             </div>
-            <div>
-              <input  className='btn btn-primary 'type="submit" disabled={!selectedCategory || sanitizeHTML(story).length==0 || loading}/>
+     
+           <Story setStory={setStory} uploaded={uploaded} story={story}/>
+            <p className="err-container text-center">{(!story ||sanitizeHTML(story).length==0)  && 'Részletes leírás kötelező!'} </p>
+<div className="d-flex flex-wrap gap-2 justify-content-center mt-2">
+       
+            <div className='d-flex justify-content-around w-100'>
+              <div>
+                 <input className='btn ' type="button" value="cancel" style={buttonStyle} onClick={()=>navigate('/')}/>
+              </div>
+              <div>
+                <input className='btn ' style={buttonStyle} type="submit" disabled={!selectedCategory || sanitizeHTML(story).length==0 || loading}/> 
+              </div>
+              
             </div>
             {loading && <BarLoader />}
             {uploaded && <Alerts txt="Sikeres feltöltés!" />}
 </div>   
     </form>
-    {photo && (
-            <div className='d-flex justify-content-center'>
-              <img className="img-thumbnail" src={photo} alt="postPhoto" style={{maxWidth:'300px'}}/>
-            </div>
-              
-            )}     
+   
     </div>
     
   );

@@ -6,24 +6,13 @@ import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Toastify } from '../components/Toastify';
 import { useEffect } from 'react';
-import { buttonStyle } from '../utility/utils';
-
-const middleStyle={
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 300,
-  background:'white',
-  padding:'1.5rem',
-  borderRadius:'5px',
- 
-}                                    
-
+import { buttonStyle, hoverStyle, middleStyle } from '../utility/utils';
+import { useState } from 'react';
 
 
 export const Auth = () => {
   const {signInUser,signUpUser,msg,user}=useContext(UserContext)
+  
 console.log(msg);
 
   const location = useLocation(); // Kinyerjük az aktuális útvonalat
@@ -62,7 +51,7 @@ console.log(msg);
           <Input  name="display_name"   placeholder="username " type="text" />
         </FormGroup>
         }
-        <Button style={buttonStyle}>{isSignIn? 'Sign IN':'Sign UP'} </Button>
+        <Button style={ buttonStyle}>{isSignIn? 'Sign IN':'Sign UP'} </Button>
       </Form>
       <a href="#" onClick={() =>navigate('/pwreset')  } style={{color:'var(--col5)',display:'block',textAlign:'right',padding:'5px'}} >Elfelejtett jelszó...</a>
       

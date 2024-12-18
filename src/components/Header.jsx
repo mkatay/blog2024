@@ -86,23 +86,22 @@ console.log(avatar)
               <NavLink onClick={()=>setIsOpen(false)} className='nav-link' to='/auth/up'>Regisztráció</NavLink>
             </NavItem>
             </> 
-              : <>
-              <NavItem>
-                <NavLink  className='nav-link' onClick={()=>logoutUser()} to='/'>Kijelentkezés</NavLink>
-              </NavItem>
+              :  
               <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav className='dropdown'>
                     {avatar ?<img className='avatarIcon' src={avatar} title={user.displayName}/> : <RxAvatar />}
                   </DropdownToggle>
-                  <DropdownMenu end>
+                  <DropdownMenu end style={{backgroundColor:"var(--navbar)"}}>
                     <DropdownItem>
-                      <NavLink onClick={()=>setIsOpen(false)} style={{textDecoration:'none',borderBottom:'1px solid var(--col(4))'}} to='/profile'> Személyes adatok</NavLink>
+                      <NavLink onClick={()=>setIsOpen(false)}  to='/profile'> Személyes adatok</NavLink>
                     </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>Felhasználói fiok törlése</DropdownItem>
+                    <DropdownItem>
+                        <NavLink  onClick={()=>logoutUser()}  to='/'>Kijelentkezés</NavLink>
+                    </DropdownItem>
+                    
                   </DropdownMenu>
                 </UncontrolledDropdown>
-              </>}
+              }
           </Nav>
          
         </Collapse>

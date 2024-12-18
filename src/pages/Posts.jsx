@@ -22,7 +22,7 @@ export const Posts = () => {
   
   return (
     <div className='page'>
-      <div className='d-flex flex-wrap gap-1 justify-content-around pt-3' >
+      <div className='d-flex flex-wrap gap-1 justify-content-around pt-4' >
         <Categories selectedCateg={selectedCateg} setSelectedCateg={setSelectedCateg}/>
         {posts && <SearchBox items={posts.map(obj=>({id:obj.id,name:obj.title}))}/>}
       </div>

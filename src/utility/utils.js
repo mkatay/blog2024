@@ -29,6 +29,24 @@ export const truncatedStory = (description) => {
   return truncated || sanitizedDescription.slice(0, maxLength) + "...";
 };
 
+
+import imageCompression from 'browser-image-compression';
+
+export const compressImage = async (file, maxSizeMB = 1, maxWidthOrHeight = 1024) => {
+  try {
+    const options = {
+      maxSizeMB,
+      maxWidthOrHeight,
+      useWebWorker: true,
+    };
+    const compressedFile = await imageCompression(file, options);
+    return compressedFile;
+  } catch (error) {
+    console.error("Hiba a kép kicsinyítése közben:", error);
+    throw error; // Dobd tovább a hibát, hogy a hívó tudja kezelni
+  }
+};
+
   
 
   export const middleStyle={
@@ -37,18 +55,24 @@ export const truncatedStory = (description) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 300,
-    background:'var(--col4)',
-    padding:'1rem',
-    borderRadius:'5px',
-    boxShadow:'0 0 5px var(--col3)'
+     padding:'1rem',
+    borderRadius:'8px',
+    boxShadow:'0 4px 8px rgba(0, 0, 0, 0.1)',
+    background:'white'
   }                                    
   
   export const buttonStyle={
-    color:'var(--col1)',
+    color:'var(--text)',
     textAlign:'center',
     width:'100%',
-    backgroundColor:'var(--col5)'
+    backgroundColor:'var(--navbar)'
   }
+
+  export const hoverStyle = {
+    ...buttonStyle,
+  
+    color:'var(--secondary)' // Ez a hover állapot színe
+  };
   export const disabledButtonStyle = {
     backgroundColor: 'var(--col4)',
     color: 'var(--col2)',
@@ -56,4 +80,4 @@ export const truncatedStory = (description) => {
     opacity: 0.7, // Opció: csökkentett átláthatóság
   };
 
-  
+ 

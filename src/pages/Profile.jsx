@@ -91,7 +91,7 @@ const handleDelete = async () => {
 }
 
   return (
-    <div className="page ">
+    <div className="page " style={{position:"relative"}}>
       <div  style={middleStyle}>
       <h3 className='text-center' style={{color:'var(--col5)'}}>Fiók beállítások</h3>
       <form onSubmit={handleSubmit(onSubmit)}  className='container' style={{maxWidth:'600px'}}>
@@ -139,7 +139,7 @@ const handleDelete = async () => {
       )}  
       {msg && <Toastify {...msg} />}  
       </div>
-      <button className="btn btn-danger m-2" onClick={handleDelete}>
+      <button className="btn btn-danger m-2" style={{position:"absolute",bottom:0,right:0}} onClick={handleDelete}>
           Felhasználói fiók törlése
       </button>
     </div>

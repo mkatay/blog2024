@@ -5,7 +5,7 @@ import { auth } from '../utility/firebaseApp';
 
 
 
-const urlRedirect=/*'https://myblog-7535b.web.app/signin' */'http://localhost:5173/auth/in'
+const urlRedirect='https://kamsblog.netlify.app/auth/in' /*'http://localhost:5173/auth/in'*/
 
 export const UserContext = createContext();
 
