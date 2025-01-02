@@ -2,9 +2,12 @@ import './PostCard.css'
 import { useNavigate } from 'react-router-dom';
 import { truncatedStory } from '../utility/utils';
 import './PostCard.css'
+import { elapsedTime } from '../utility/elapsedTime';
 
-export const PostCard=({id,title,photo,category,story}) => {
+export const PostCard=({id,title,photo,category,story,timestamp}) => {
     const navigate=useNavigate()
+    //console.log(elapsedTime(timestamp));
+    
 return(
 
   <div className="card" onClick={()=>navigate('/detail/'+id)}>
@@ -12,7 +15,7 @@ return(
       <img src={photo.url} alt={title} className="card-image" />
       <div className="card-hover-info">
         <p className="author">{category}</p>
-        <p className="date">December 16, 2024</p>
+        <p className="date">{elapsedTime(timestamp)}</p>
       </div>
     </div>
     <div className="card-content">
