@@ -12,6 +12,7 @@ import { NotFound } from './pages/NotFound';
 import { Header } from './components/Header';
 import { Posts } from './pages/Posts';
 import { Auth } from './pages/Auth';
+import { PostsWithPagination } from './pages/PostsWithPagination';
 
 
 
@@ -20,7 +21,7 @@ const router=createBrowserRouter([
   {element:<Header/>,
     children:[
       {path:'/',element:<Home/>},
-      {path:'/posts',element:<Posts/>},
+      {path:'/posts',element:<PostsWithPagination/>},
       {path:'/detail/:id',element:<Detail/>},
       {path:'/create',element:<AddEditPost />},
       {path:'/update/:id',element:<AddEditPost />},

@@ -25,7 +25,7 @@ export const addPost =async (formData) => {
   const newDocRef=await addDoc(collectionRef,newItem)
   //console.log("az új documentum azonosítója:",newDocRef.id)
 };
-//az összes post kiolvasása:
+//az összes post kiolvasása:--már nincs használva za oldallapozás bevezetése után
 export const readPosts = (setPosts,selectedCateg) => {
   const collectionRef = collection(db, "posts");
   const q =selectedCateg.length==0 ?  
@@ -37,10 +37,10 @@ export const readPosts = (setPosts,selectedCateg) => {
   });
   return unsubscribe;
 };
-/////////////////////////////nem jó:///////////////////////////////////////
+/////////////////////////////az oldallapozáshoz kell:///////////////////////////////////////
 
 // Az alap query a `timestamp` szerint rendezi a posztokat
-const getMainQuery = (selectedCateg) => {
+export const getMainQuery = (selectedCateg) => {
   const collectionRef = collection(db, "posts");
   // Ha nincs kategória szűrő, akkor egyszerűen rendezd az időbélyeg szerint
   if (selectedCateg.length === 0) {
@@ -51,24 +51,6 @@ const getMainQuery = (selectedCateg) => {
   }
 };
 
-// Az új függvény, amely a usePagination hookot használja
-export const readPostsWP = (setPosts, selectedCateg) => {
-  const { getNext, getPrevious, data, loading } = usePagination({
-    pageSize: 10,  
-    pageByPage: true,  
-    query:getMainQuery(selectedCateg)
-  });
-
-  // Ha az adatok betöltődtek, frissítjük a posztokat
-  useEffect(() => {
-    if (!loading) {
-      console.log(data);//üres tömb van a data.docs alatt  
-      setPosts(data);  
-    }
-  }, [data, loading, setPosts]);
-
-  return { getNext, getPrevious, loading };
-};
 /////////////////////////////////////////////////////////////////////////////////
 export const readPost = async (id, setPost,setLikesNr=null) => {
   const docRef = doc(db, "posts", id);
@@ -79,19 +61,6 @@ export const readPost = async (id, setPost,setLikesNr=null) => {
   } catch (error) {
     console.error("Hiba a dokumentum olvasása közben:", error);
   }
-};
-///az oldallapozáshoz:
-export const createMainQuery = (selectedCateg) => {
-  return selectedCateg.length
-    ? query(
-        collection(db, "posts"),
-        where("category", "in", selectedCateg),
-        orderBy("created_timestamp", "desc")
-      )
-    : query(
-        collection(db, "posts"),
-        orderBy("created_timestamp", "desc")
-      );
 };
 
 export const deletePost=async (id)=>{

@@ -7,6 +7,7 @@ import { readPosts } from '../utility/crudUtility'
 import { CardsContainer } from '../components/CardsContainer'
 import { SearchBox } from '../components/SearchBox'
 
+
 export const Posts = () => {
   const [posts,setPosts]=useState([])
   let [searchParams] = useSearchParams();
@@ -30,7 +31,7 @@ export const Posts = () => {
       
       
       {posts.length>0 && <CardsContainer posts={posts}/>}
-
+  
     </div>
   )
 }

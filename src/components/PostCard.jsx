@@ -20,7 +20,7 @@ return(
     </div>
     <div className="card-content">
       <h3 className="card-title">{title}</h3>
-      <p className="card-description">{truncatedStory(story)}</p>
+      <p className="card-description">{truncatedStory(story)} ...</p>
     </div>
   </div>
 )

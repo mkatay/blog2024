@@ -57,7 +57,7 @@ export const Detail = () => {
         <div className='post-container'>
           <img  className="post-photo" src={post?.photo['url']} alt={post?.title}   />
           <div className="post-story ">
-              <h3>{post.title}</h3>
+              <h3 style={{position:"relative"}}><span>{post.title}</span> <span style={{position:'absolute',top:-10,right:0,fontSize:'0.6rem'}}>szerző:{post.author}</span></h3>
               <p className="timestamp">{elapsedTime(post.timestamp)}</p>
              <p  >{parse(post?.story)}</p>
           </div>
