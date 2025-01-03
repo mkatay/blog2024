@@ -1,66 +1,36 @@
-import React from 'react'
-import { Categories } from '../components/Categories'
-import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { CardsContainer } from '../components/CardsContainer'
-import { SearchBox } from '../components/SearchBox'
-import { ContentPagination } from '../components/ContentPagination'
-import usePagination from 'react-firebase-pagination'
-import { createMainQuery } from '../utility/crudUtility'
-import { useEffect } from 'react'
-import { collection, orderBy, query, where } from 'firebase/firestore'
-import { db } from '../utility/firebaseApp'
-
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Categories } from '../components/Categories';
+import { CardsContainer } from '../components/CardsContainer';
+import { SearchBox } from '../components/SearchBox';
+import { readPosts } from '../utility/crudUtility'; // Az új `readPosts` függvény importálása
 
 export const PostsWithPagination = () => {
-  //const [posts,setPosts]=useState([])
-  const [mainQuery, setMainQuery] = useState( query(collection(db, "posts"), orderBy("created_timestamp", "desc")));
+  const [posts, setPosts] = useState([]);
   let [searchParams] = useSearchParams();
-  console.log(searchParams.get('sel'));   
-  const [selectedCateg,setSelectedCateg]=useState( searchParams.get('sel') ? [searchParams.get('sel')] : [])
+  const [selectedCateg, setSelectedCateg] = useState(searchParams.get('sel') ? [searchParams.get('sel')] : []);
   
-  console.log(selectedCateg);
-  
-  const pageSize = 6;
-  /*  useEffect(()=>{
-        const q = selectedCateg.length
-            ? query(
-                collection(db, "posts"),
-                where("category", "in", selectedCateg),
-                orderBy("created_timestamp", "desc")
-              )
-            : query(
-                collection(db, "posts"),
-                orderBy("created_timestamp", "desc")
-              );
-        setMainQuery(q); 
-        console.log('query:',q);    
-    },[])
- */
+  // Az adatokat a readPosts függvénnyel frissítjük
+  const { getNext, getPrevious, loading } = readPosts(setPosts, selectedCateg);
 
-  // Használjuk a lapozáshoz szükséges hookot
-  const { getNext, getPrevious, data, loading, currentPage, totalPages } =usePagination(
-    {pageSize, pageByPage: true, query: mainQuery,enabled: mainQuery !== null });
-!loading && console.log(data);
-
+  // Az oldalak közötti navigációval kapcsolatos gombok
   return (
     <div className='page'>
-      <div className='d-flex flex-wrap gap-1 justify-content-around pt-3' >
-        <Categories selectedCateg={selectedCateg} setSelectedCateg={setSelectedCateg}/>
-        {/*posts && <SearchBox items={posts.map(obj=>({id:obj.id,name:obj.title}))}/>*/}
+      <div className='d-flex flex-wrap gap-1 justify-content-around pt-4'>
+        {/* Kategóriák kiválasztása */}
+        <Categories selectedCateg={selectedCateg} setSelectedCateg={setSelectedCateg} />
+        {/* Keresőmező a posztok listájához */}
+        {posts && <SearchBox items={posts.map(obj => ({ id: obj.id, name: obj.title }))} />}
       </div>
-        
-      {loading ?   <div>Loading...</div> : <CardsContainer posts={data.docs}/>}
-      <ContentPagination
-       page={currentPage}
-       setPage={(newPage) => {
-         if (newPage > currentPage) getNext();
-         else getPrevious();
-       }}
-       numOfPage={totalPages}
-      />
+
+      {/* Kártyák megjelenítése, ha vannak posztok */}
+      {posts.length > 0 && <CardsContainer posts={posts} />}
+
+      {/* Navigáció az oldalak között */}
+      <div className="pagination-controls">
+        <button onClick={getPrevious} disabled={loading}>Előző</button>
+        <button onClick={getNext} disabled={loading}>Következő</button>
+      </div>
     </div>
-  )
-}
-
-
+  );
+};

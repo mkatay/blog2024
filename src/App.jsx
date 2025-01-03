@@ -12,7 +12,7 @@ import { NotFound } from './pages/NotFound';
 import { Header } from './components/Header';
 import { Posts } from './pages/Posts';
 import { Auth } from './pages/Auth';
-import { PostsWithPagination } from './pages/PostsWithPagination';
+
 
 
 

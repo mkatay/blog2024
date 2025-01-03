@@ -1,8 +1,10 @@
 //a backend kölünválasztva
 import {db} from "./firebaseApp";
 import {collection, addDoc,doc,deleteDoc,query,getDoc,
-  where,serverTimestamp, updateDoc,orderBy,onSnapshot, 
-  limit} from "firebase/firestore";
+  where,serverTimestamp, updateDoc,orderBy,onSnapshot} from "firebase/firestore";
+import { useEffect } from 'react';
+import usePagination from "react-firebase-pagination";
+
 
 //aszinkron:Az onSnapshot függvény egy eseményfigyelő, amely figyeli 
 //a Firestore adatbázisban történő változásokat, akkor az onSnapshot meghívódik, és frissíti az aktuális adatokkal.
@@ -35,7 +37,39 @@ export const readPosts = (setPosts,selectedCateg) => {
   });
   return unsubscribe;
 };
+/////////////////////////////nem jó:///////////////////////////////////////
 
+// Az alap query a `timestamp` szerint rendezi a posztokat
+const getMainQuery = (selectedCateg) => {
+  const collectionRef = collection(db, "posts");
+  // Ha nincs kategória szűrő, akkor egyszerűen rendezd az időbélyeg szerint
+  if (selectedCateg.length === 0) {
+    return query(collectionRef, orderBy('timestamp', 'desc'));
+  } else {
+    // Ha van kategória, szűrj a kategória alapján is
+    return query(collectionRef, where('category', 'in', selectedCateg), orderBy('timestamp', 'desc'));
+  }
+};
+
+// Az új függvény, amely a usePagination hookot használja
+export const readPostsWP = (setPosts, selectedCateg) => {
+  const { getNext, getPrevious, data, loading } = usePagination({
+    pageSize: 10,  
+    pageByPage: true,  
+    query:getMainQuery(selectedCateg)
+  });
+
+  // Ha az adatok betöltődtek, frissítjük a posztokat
+  useEffect(() => {
+    if (!loading) {
+      console.log(data);//üres tömb van a data.docs alatt  
+      setPosts(data);  
+    }
+  }, [data, loading, setPosts]);
+
+  return { getNext, getPrevious, loading };
+};
+/////////////////////////////////////////////////////////////////////////////////
 export const readPost = async (id, setPost,setLikesNr=null) => {
   const docRef = doc(db, "posts", id);
   try{

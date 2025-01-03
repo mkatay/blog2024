@@ -21,6 +21,7 @@ export const Detail = () => {
   const params=useParams()
   const navigate=useNavigate()
   console.log(params);
+  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL; 
 
   useEffect(()=>{
     readPost(params.id,setPost,setLikesNr)
@@ -67,7 +68,7 @@ export const Detail = () => {
             <FaThumbsUp className='icon' onClick={handleLikes} />
             <span style={{padding:'2px'}}>{likesNr}</span>
           </div>
-          {(user && post && user.uid==post.userId)   &&
+          {(user && post && (user.uid==post.userId || user.email==adminEmail))   &&
             <div>
               <FaTrash style={{color:'var(--accent)',marginRight:'1rem'}}  className='icon' onClick={handleDelete}/>
               <FaPen className='icon' style={{color:'var(--primary)'}}   onClick={()=>navigate('/update/'+post.id)}/>
