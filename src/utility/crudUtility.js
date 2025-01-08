@@ -37,6 +37,8 @@ export const readPosts = (setPosts,selectedCateg) => {
   });
   return unsubscribe;
 };
+;
+
 /////////////////////////////az oldallapozáshoz kell:///////////////////////////////////////
 
 // Az alap query a `timestamp` szerint rendezi a posztokat
@@ -52,15 +54,12 @@ export const getMainQuery = (selectedCateg) => {
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-export const readPost = async (id, setPost,setLikesNr=null) => {
+export const readPost = (id, setPost) => {
   const docRef = doc(db, "posts", id);
-  try{
-    const docSnap = await getDoc(docRef);
-      setLikesNr && setLikesNr(docSnap.data().likes?.length || 0)
-      setPost({ ...docSnap.data(), id: docSnap.id });
-  } catch (error) {
-    console.error("Hiba a dokumentum olvasása közben:", error);
-  }
+  const unsubscribe=onSnapshot(docRef, (snapshot) => {
+      setPost({...snapshot.data(), id: snapshot.id });
+    })
+    return unsubscribe
 };
 
 export const deletePost=async (id)=>{
@@ -75,28 +74,18 @@ export const updatePost=async (id,{title,category,story})=>{
   await updateDoc(docRef, {title,category,story})//csak azt a mezőt írja felül amit megadok
 }
    
-export const toggleLike=async (postId,uid,setLikesNr)=>{
-  console.log(postId,uid);
-  
+export const toggleLike=async (postId,uid)=>{
   const docRef = doc(db, "posts", postId);
-  try{
-    const docSnap = await getDoc(docRef);
-    const likesArr = docSnap.data().likes || []; // Ha nincs likes attribútum, üres tömböt használunk
-   console.log(likesArr);
-   
-    if (likesArr.includes(uid)) {
+  const docSnap = await getDoc(docRef);
+  const likesArr = docSnap.data().likes || []; // Ha nincs likes attribútum, üres tömböt használunk
+  if (likesArr.includes(uid)) {
       // Ha az uid már benne van, töröljük
       await updateDoc(docRef, {likes: likesArr.filter((id) => id !== uid)});
-      setLikesNr(prev=>--prev)
       console.log("Unlike történt");
-    } else {
+  } else {
       // Ha az uid nincs benne, hozzáadjuk
       await updateDoc(docRef, {likes: [...likesArr, uid]});
       console.log("Like történt")
-      setLikesNr(prev=>++prev)
-    }
-  } catch (error) {
-    console.error("Hiba a dokumentum olvasása közben:", error);
   }
 };
 

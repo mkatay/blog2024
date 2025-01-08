@@ -16,7 +16,6 @@ import {Alerts} from '../components/Alerts'
 export const Detail = () => {
   const {user}=useContext(UserContext)
   const [post,setPost]=useState(null)
-  const [likesNr,setLikesNr]=useState(0)
   const [txt,setTxt]=useState(null)
   const params=useParams()
   const navigate=useNavigate()
@@ -24,7 +23,7 @@ export const Detail = () => {
   const adminEmail = import.meta.env.VITE_ADMIN_EMAIL; 
 
   useEffect(()=>{
-    readPost(params.id,setPost,setLikesNr)
+    readPost(params.id,setPost)
   },[]) 
 
   post && console.log(post);
@@ -45,7 +44,7 @@ export const Detail = () => {
   }
   const handleLikes=()=>{
     if(!user) setTxt("Csak bejelentkezett felhasználók likeolhatnak!" )
-    else toggleLike(post.id,user.uid,setLikesNr)
+    else toggleLike(post.id,user.uid)
   }
   
   return (
@@ -66,7 +65,7 @@ export const Detail = () => {
          <div className="d-flex justify-content-around p-3 border-top mt-3">
          <div className='d-flex gap-2 align-items-center'style={{color:"var(--col5)"}}>
             <FaThumbsUp className='icon' onClick={handleLikes} />
-            <span style={{padding:'2px'}}>{likesNr}</span>
+            {post && <span style={{padding:'2px'}}>{post.likes.length}</span>}
           </div>
           {(user && post && (user.uid==post.userId || user.email==adminEmail))   &&
             <div>
