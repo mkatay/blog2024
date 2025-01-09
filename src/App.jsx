@@ -21,7 +21,8 @@ const router=createBrowserRouter([
   {element:<Header/>,
     children:[
       {path:'/',element:<Home/>},
-      {path:'/posts',element:<PostsWithPagination/>},
+      {/*path:'/posts',element:<PostsWithPagination/>*/},
+      {path:'/posts',element:<Posts/>},
       {path:'/detail/:id',element:<Detail/>},
       {path:'/create',element:<AddEditPost />},
       {path:'/update/:id',element:<AddEditPost />},

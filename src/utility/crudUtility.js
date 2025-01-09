@@ -44,12 +44,10 @@ export const readPosts = (setPosts,selectedCateg) => {
 // Az alap query a `timestamp` szerint rendezi a posztokat
 export const getMainQuery = (selectedCateg) => {
   const collectionRef = collection(db, "posts");
-  // Ha nincs kategória szűrő, akkor egyszerűen rendezd az időbélyeg szerint
   if (selectedCateg.length === 0) {
-    return query(collectionRef, orderBy('timestamp', 'desc'));
+      return query(collectionRef, orderBy('timestamp', 'desc'));
   } else {
-    // Ha van kategória, szűrj a kategória alapján is
-    return query(collectionRef, where('category', 'in', selectedCateg), orderBy('timestamp', 'desc'));
+      return query(collectionRef, where('category', 'in', selectedCateg), orderBy('timestamp', 'desc'));
   }
 };
 

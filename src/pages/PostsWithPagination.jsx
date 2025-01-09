@@ -17,19 +17,19 @@ export const PostsWithPagination = () => {
   //Az useMemo segítségével csak akkor számítjuk újra a query-t, ha a selectedCateg változik. 
   //Ez megakadályozza, hogy a usePagination minden renderelésnél újra inicializálódjon.
   const query = useMemo(() => getMainQuery(selectedCateg), [selectedCateg]);
-  // Az adatokat a readPosts függvénnyel frissítjük
-  const { getNext, getPrevious, loading,data } = usePagination({
+  const { getNext, getPrevious, loading,data,hasNext,hasPrevious } = usePagination({
     pageSize: 12,  
     pageByPage: true,  
     query
   });
+ 
 // Adatok feldolgozása useEffect-tel
 useEffect(() => {
     if (!loading && data) {
       const formattedData = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       setPosts(formattedData);
     }
-  }, [loading, data]);
+  }, [data,loading]);
 
   // Oldal tetejére ugrás új adatok betöltésekor
   useEffect(() => {
@@ -37,6 +37,8 @@ useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [posts]);
+
+console.log(hasNext,hasPrevious);//első rendereléskor: false és true  ?????????????miért
 
   return (
     <div className='page'>
@@ -52,8 +54,8 @@ useEffect(() => {
 
       {/* Navigáció az oldalak között */}
       <div className="d-flex gap-2 justify-content-center">
-        <button className="btn btn-outline-info "  onClick={getPrevious} disabled={loading}>Előző</button>
-        <button className="btn btn-outline-info"onClick={getNext} disabled={loading }>Következő</button>
+        <button className="btn btn-outline-info " onClick={getPrevious} disabled={loading || !hasPrevious}>Előző</button>
+        <button className="btn btn-outline-info"onClick={getNext} disabled={loading || !hasNext}>Következő</button>
       </div>
     </div>
   );

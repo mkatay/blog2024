@@ -24,9 +24,6 @@ export const delPhoto= async (id) => {
   try {
     await axios.delete(url+'/post/'+id);
   } catch (error) {
-    console.log(error);
-    
-  }
-    
-    
+    console.log(error);  
+  }    
 };
