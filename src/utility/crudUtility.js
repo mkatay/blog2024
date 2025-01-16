@@ -41,7 +41,7 @@ export const readPosts = (setPosts,selectedCateg) => {
 
 /////////////////////////////az oldallapozáshoz kell:///////////////////////////////////////
 
-// Az alap query a `timestamp` szerint rendezi a posztokat
+// Az alap query a `timestamp` szerint rendezi a posztokat***az oldalazáshoz volt használva
 export const getMainQuery = (selectedCateg) => {
   const collectionRef = collection(db, "posts");
   if (selectedCateg.length === 0) {

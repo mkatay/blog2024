@@ -26,7 +26,7 @@ export const Home = () => {
           className="hero"
         >
           <div className="hero-content">
-            <h1>Fedezd fel a Világot...</h1>
+          
             <h6>
               <ReactTyped
                 strings={[
